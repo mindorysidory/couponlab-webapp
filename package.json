@@ -2,7 +2,7 @@
   "name": "couponlab-webapp",
   "version": "1.0.0",
   "description": "쿠폰랩 - 할인코드 전문 연구소",
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
