@@ -199,16 +199,16 @@ const CouponLabApp = () => {
       </div>
 
       {/* Categories */}
-      <div style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb' }}>
-        <div style={{ maxWidth: '28rem', margin: '0 auto' }}>
-          <div style={{ 
-            display: 'flex', 
-            overflowX: 'auto', 
-            padding: '1rem', 
-            gap: '0.75rem',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none'
-          }}>
+     <div style={{ 
+  display: 'flex', 
+  overflowX: 'auto', 
+  overflowY: 'hidden',
+  padding: '1rem', 
+  gap: '0.75rem',
+  scrollbarWidth: 'thin',
+  scrollbarColor: '#cbd5e1 #f1f5f9',
+  WebkitOverflowScrolling: 'touch'
+}}>
             {categories.map((category) => (
               <button
                 key={category.id}
