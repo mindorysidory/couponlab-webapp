@@ -226,8 +226,8 @@ const CouponLabApp = () => {
                   color: activeCategory === category.id ? '#2563eb' : '#6b7280'
                 }}
               >
-                <span style={{ fontSize: '1.125rem', marginBottom: '0.25rem' }}>{category.icon}</span>
-                <span style={{ fontSize: '0.75rem', fontWeight: '500', whiteSpace: 'nowrap' }}>{category.name}</span>
+                  <span style={{ fontSize: '1.125rem', marginBottom: '0.25rem' }}>{category.icon}</span>
+                 <span style={{ fontSize: '0.75rem', fontWeight: '500', whiteSpace: 'nowrap' }}>{category.name}</span>
               </button>
             ))}
           </div>
