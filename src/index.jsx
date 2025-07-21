@@ -1,7 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Search, Copy, Star, TrendingUp, Clock, Gift, ChevronDown, ChevronUp, Plus, Edit, Trash2, Save } from 'lucide-react';
+import ReactDOM from 'react-dom/client';
 
-const App = () => {
+// 아이콘들을 이모지로 대체
+const Heart = ({ className, onClick, fill }) => (
+  <span onClick={onClick} className={className} style={{ cursor: 'pointer', fontSize: '1rem' }}>
+    {fill ? '❤️' : '🤍'}
+  </span>
+);
+const Search = ({ className }) => <span className={className}>🔍</span>;
+const Copy = ({ className }) => <span className={className}>📋</span>;
+const Star = ({ className }) => <span className={className}>⭐</span>;
+const TrendingUp = ({ className }) => <span className={className}>📈</span>;
+const Clock = ({ className }) => <span className={className}>⏰</span>;
+const Gift = ({ className }) => <span className={className}>🎁</span>;
+const ChevronDown = ({ className }) => <span className={className}>▼</span>;
+const ChevronUp = ({ className }) => <span className={className}>▲</span>;
+const Plus = ({ className }) => <span className={className}>➕</span>;
+const Edit = ({ className }) => <span className={className}>✏️</span>;
+const Trash2 = ({ className }) => <span className={className}>🗑️</span>;
+const Save = ({ className }) => <span className={className}>💾</span>;
+
+const CouponLabApp = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [favoriteItems, setFavoriteItems] = useState(new Set());
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,7 +59,7 @@ const App = () => {
     { id: 'cloud', name: '클라우드', icon: '☁️' }
   ];
 
-  // 초기 데이터 로드 (실제 환경에서는 API에서 가져옴)
+  // 초기 데이터 로드
   useEffect(() => {
     const initialData = [
       { id: 1, title: '무신사 스토어', category: 'fashion', discount: '15%', code: 'MUSINSA15', description: '브랜드 의류 최대 15% 할인', validUntil: '2025.08.15', popularity: 4.8, isNew: true, clicks: 12340, brand: '무신사', rank: 1 },
@@ -66,26 +85,13 @@ const App = () => {
       { id: 21, title: 'Grammarly', category: 'productivity', discount: '50%', code: 'GRAMMAR50', description: '영어 문법 검사 도구', validUntil: '2025.08.20', popularity: 4.2, isNew: false, clicks: 4654, brand: 'Grammarly', rank: 21 },
       { id: 22, title: 'Dropbox Plus', category: 'cloud', discount: '40%', code: 'DROPBOX40', description: '클라우드 스토리지 할인', validUntil: '2025.08.30', popularity: 4.1, isNew: false, clicks: 4543, brand: 'Dropbox', rank: 22 },
       { id: 23, title: 'Shopify', category: 'dev', discount: '3개월', code: 'SHOPIFY3M', description: '이커머스 플랫폼 무료', validUntil: '2025.09.15', popularity: 4.4, isNew: false, clicks: 4432, brand: 'Shopify', rank: 23 },
-      { id: 24, title: 'Webflow', category: 'design', discount: '30%', code: 'WEBFLOW30', description: '노코드 웹사이트 빌더', validUntil: '2025.08.25', popularity: 4.3, isNew: false, clicks: 4321, brand: 'Webflow', rank: 24 },
-      { id: 25, title: 'Claude Pro', category: 'ai', discount: '25%', code: 'CLAUDE25', description: 'AI 어시스턴트 프로 플랜', validUntil: '2025.08.18', popularity: 4.6, isNew: true, clicks: 4210, brand: 'Anthropic', rank: 25 }
+      { id: 24, title: 'Claude Pro', category: 'ai', discount: '25%', code: 'CLAUDE25', description: 'AI 어시스턴트 프로 플랜', validUntil: '2025.08.18', popularity: 4.6, isNew: true, clicks: 4210, brand: 'Anthropic', rank: 24 },
+      { id: 25, title: '29CM', category: 'fashion', discount: '20%', code: '29CM20', description: '패션 브랜드 컬렉션', validUntil: '2025.08.28', popularity: 4.3, isNew: false, clicks: 4100, brand: '29CM', rank: 25 }
     ];
     
-    // 실제 환경에서는 localStorage 대신 실제 데이터베이스 사용
-    const savedData = localStorage.getItem('couponlab-data');
-    if (savedData) {
-      setDiscountItems(JSON.parse(savedData));
-    } else {
-      setDiscountItems(initialData);
-      localStorage.setItem('couponlab-data', JSON.stringify(initialData));
-    }
+    setDiscountItems(initialData);
   }, []);
 
-  // 데이터 저장 함수 (실제 환경에서는 API 호출)
-  const saveToDatabase = (data) => {
-    localStorage.setItem('couponlab-data', JSON.stringify(data));
-  };
-
-  // 할인코드 추가
   const addCoupon = () => {
     if (!newCoupon.title || !newCoupon.code) return;
     
@@ -98,7 +104,6 @@ const App = () => {
     
     const updatedItems = [...discountItems, newItem];
     setDiscountItems(updatedItems);
-    saveToDatabase(updatedItems);
     
     setNewCoupon({
       title: '',
@@ -114,21 +119,17 @@ const App = () => {
     setIsAddingNew(false);
   };
 
-  // 할인코드 수정
   const updateCoupon = (id, updatedData) => {
     const updatedItems = discountItems.map(item => 
       item.id === id ? { ...item, ...updatedData } : item
     );
     setDiscountItems(updatedItems);
-    saveToDatabase(updatedItems);
     setEditingItem(null);
   };
 
-  // 할인코드 삭제
   const deleteCoupon = (id) => {
     const updatedItems = discountItems.filter(item => item.id !== id);
     setDiscountItems(updatedItems);
-    saveToDatabase(updatedItems);
   };
 
   const toggleFavorite = (itemId) => {
@@ -143,12 +144,7 @@ const App = () => {
 
   const copyCode = (code) => {
     navigator.clipboard.writeText(code);
-    // 실제 사용 통계 업데이트
-    const updatedItems = discountItems.map(item => 
-      item.code === code ? { ...item, clicks: item.clicks + 1 } : item
-    );
-    setDiscountItems(updatedItems);
-    saveToDatabase(updatedItems);
+    alert(`할인코드 "${code}"가 복사되었습니다!`);
   };
 
   const filteredItems = discountItems
@@ -169,40 +165,87 @@ const App = () => {
   const displayItems = showAllItems ? filteredItems : filteredItems.slice(0, 20);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div style={{ minHeight: '100vh', backgroundColor: '#f9fafb', fontFamily: 'system-ui, -apple-system' }}>
+      
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-md mx-auto p-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-3">
+      <div style={{ backgroundColor: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', borderBottom: '1px solid #e5e7eb' }}>
+        <div style={{ maxWidth: '28rem', margin: '0 auto', padding: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               {/* 3D 큐브 로고 */}
-              <div className="relative w-8 h-8" style={{transform: 'perspective(100px) rotateX(15deg) rotateY(15deg)'}}>
-                <div className="absolute w-7 h-7 bg-blue-500 border border-blue-600" style={{transform: 'translateZ(14px)'}}></div>
-                <div className="absolute w-7 h-7 bg-blue-400 border border-blue-500" style={{transform: 'rotateY(90deg) translateZ(14px)'}}></div>
-                <div className="absolute w-7 h-7 bg-blue-300 border border-blue-400" style={{transform: 'rotateX(90deg) translateZ(14px)'}}></div>
+              <div style={{ 
+                position: 'relative', 
+                width: '2rem', 
+                height: '2rem',
+                transform: 'perspective(100px) rotateX(15deg) rotateY(15deg)'
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  width: '1.75rem',
+                  height: '1.75rem',
+                  backgroundColor: '#3b82f6',
+                  border: '1px solid #2563eb',
+                  transform: 'translateZ(14px)'
+                }}></div>
+                <div style={{
+                  position: 'absolute',
+                  width: '1.75rem',
+                  height: '1.75rem',
+                  backgroundColor: '#60a5fa',
+                  border: '1px solid #3b82f6',
+                  transform: 'rotateY(90deg) translateZ(14px)'
+                }}></div>
+                <div style={{
+                  position: 'absolute',
+                  width: '1.75rem',
+                  height: '1.75rem',
+                  backgroundColor: '#93c5fd',
+                  border: '1px solid #60a5fa',
+                  transform: 'rotateX(90deg) translateZ(14px)'
+                }}></div>
               </div>
-              <h1 className="text-xl font-bold text-gray-900">쿠폰랩</h1>
+              <h1 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>쿠폰랩</h1>
             </div>
-            <div className="flex space-x-2">
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
               <button 
                 onClick={() => setShowAdmin(!showAdmin)}
-                className="p-2 bg-gray-100 rounded-full"
+                style={{ 
+                  padding: '0.5rem', 
+                  backgroundColor: '#f3f4f6', 
+                  borderRadius: '50%', 
+                  border: 'none', 
+                  cursor: 'pointer' 
+                }}
               >
-                <Edit className="w-5 h-5 text-gray-600" />
-              </button>
-              <button className="p-2 bg-gray-100 rounded-full">
-                <Heart className="w-5 h-5 text-gray-600" />
+                <Edit style={{ width: '1.25rem', height: '1.25rem', color: '#6b7280' }} />
               </button>
             </div>
           </div>
           
           {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <div style={{ position: 'relative' }}>
+            <Search style={{ 
+              position: 'absolute', 
+              left: '0.75rem', 
+              top: '50%', 
+              transform: 'translateY(-50%)', 
+              color: '#9ca3af'
+            }} />
             <input
               type="text"
               placeholder="브랜드, 상품을 검색해보세요"
-              className="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-xl border-0 text-sm"
+              style={{
+                width: '100%',
+                paddingLeft: '2.5rem',
+                paddingRight: '1rem',
+                paddingTop: '0.75rem',
+                paddingBottom: '0.75rem',
+                backgroundColor: '#f3f4f6',
+                borderRadius: '0.75rem',
+                border: 'none',
+                fontSize: '0.875rem',
+                boxSizing: 'border-box'
+              }}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -212,37 +255,48 @@ const App = () => {
 
       {/* Admin Panel */}
       {showAdmin && (
-        <div className="bg-yellow-50 border-b">
-          <div className="max-w-md mx-auto p-4">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-gray-900">관리자 패널</h3>
+        <div style={{ backgroundColor: '#fef3c7', borderBottom: '1px solid #e5e7eb' }}>
+          <div style={{ maxWidth: '28rem', margin: '0 auto', padding: '1rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+              <h3 style={{ fontWeight: '600', color: '#111827', margin: 0 }}>관리자 패널</h3>
               <button 
                 onClick={() => setIsAddingNew(true)}
-                className="flex items-center space-x-1 bg-blue-500 text-white px-3 py-1.5 rounded-lg text-sm"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  padding: '0.375rem 0.75rem',
+                  borderRadius: '0.5rem',
+                  fontSize: '0.875rem',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
               >
-                <Plus className="w-4 h-4" />
+                <Plus style={{ width: '1rem', height: '1rem' }} />
                 <span>새 쿠폰 추가</span>
               </button>
             </div>
             
             {/* 새 쿠폰 추가 폼 */}
             {isAddingNew && (
-              <div className="bg-white p-4 rounded-lg border mb-3">
-                <div className="grid grid-cols-2 gap-3 mb-3">
+              <div style={{ backgroundColor: 'white', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #e5e7eb', marginBottom: '0.75rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '0.75rem' }}>
                   <input
                     placeholder="서비스명"
-                    className="px-3 py-2 border rounded text-sm"
+                    style={{ padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.375rem', fontSize: '0.875rem' }}
                     value={newCoupon.title}
                     onChange={(e) => setNewCoupon({...newCoupon, title: e.target.value})}
                   />
                   <input
                     placeholder="브랜드명"
-                    className="px-3 py-2 border rounded text-sm"
+                    style={{ padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.375rem', fontSize: '0.875rem' }}
                     value={newCoupon.brand}
                     onChange={(e) => setNewCoupon({...newCoupon, brand: e.target.value})}
                   />
                   <select
-                    className="px-3 py-2 border rounded text-sm"
+                    style={{ padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.375rem', fontSize: '0.875rem' }}
                     value={newCoupon.category}
                     onChange={(e) => setNewCoupon({...newCoupon, category: e.target.value})}
                   >
@@ -252,50 +306,61 @@ const App = () => {
                   </select>
                   <input
                     placeholder="할인율 (예: 20%)"
-                    className="px-3 py-2 border rounded text-sm"
+                    style={{ padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.375rem', fontSize: '0.875rem' }}
                     value={newCoupon.discount}
                     onChange={(e) => setNewCoupon({...newCoupon, discount: e.target.value})}
                   />
                   <input
                     placeholder="할인코드"
-                    className="px-3 py-2 border rounded text-sm"
+                    style={{ padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.375rem', fontSize: '0.875rem' }}
                     value={newCoupon.code}
                     onChange={(e) => setNewCoupon({...newCoupon, code: e.target.value})}
                   />
                   <input
                     placeholder="유효기간 (2025.08.31)"
-                    className="px-3 py-2 border rounded text-sm"
+                    style={{ padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.375rem', fontSize: '0.875rem' }}
                     value={newCoupon.validUntil}
                     onChange={(e) => setNewCoupon({...newCoupon, validUntil: e.target.value})}
                   />
                 </div>
                 <input
                   placeholder="설명"
-                  className="w-full px-3 py-2 border rounded text-sm mb-3"
+                  style={{ width: '100%', padding: '0.75rem', border: '1px solid #d1d5db', borderRadius: '0.375rem', fontSize: '0.875rem', marginBottom: '0.75rem', boxSizing: 'border-box' }}
                   value={newCoupon.description}
                   onChange={(e) => setNewCoupon({...newCoupon, description: e.target.value})}
                 />
-                <div className="flex items-center justify-between">
-                  <label className="flex items-center space-x-2">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <input
                       type="checkbox"
                       checked={newCoupon.isNew}
                       onChange={(e) => setNewCoupon({...newCoupon, isNew: e.target.checked})}
                     />
-                    <span className="text-sm">신규 쿠폰</span>
+                    <span style={{ fontSize: '0.875rem' }}>신규 쿠폰</span>
                   </label>
-                  <div className="flex space-x-2">
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
                     <button 
                       onClick={() => setIsAddingNew(false)}
-                      className="px-3 py-1.5 border rounded text-sm"
+                      style={{ padding: '0.375rem 0.75rem', border: '1px solid #d1d5db', borderRadius: '0.375rem', fontSize: '0.875rem', background: 'white', cursor: 'pointer' }}
                     >
                       취소
                     </button>
                     <button 
                       onClick={addCoupon}
-                      className="flex items-center space-x-1 bg-blue-500 text-white px-3 py-1.5 rounded text-sm"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.25rem',
+                        backgroundColor: '#3b82f6',
+                        color: 'white',
+                        padding: '0.375rem 0.75rem',
+                        borderRadius: '0.375rem',
+                        fontSize: '0.875rem',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
                     >
-                      <Save className="w-4 h-4" />
+                      <Save style={{ width: '1rem', height: '1rem' }} />
                       <span>저장</span>
                     </button>
                   </div>
@@ -303,7 +368,7 @@ const App = () => {
               </div>
             )}
             
-            <div className="text-sm text-gray-600">
+            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
               총 {discountItems.length}개의 할인코드가 등록되어 있습니다.
             </div>
           </div>
@@ -311,21 +376,38 @@ const App = () => {
       )}
 
       {/* Categories */}
-      <div className="bg-white border-b">
-        <div className="max-w-md mx-auto">
-          <div className="flex overflow-x-auto p-4 space-x-3 scrollbar-hide">
+      <div style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb' }}>
+        <div style={{ maxWidth: '28rem', margin: '0 auto' }}>
+          <div style={{ 
+            display: 'flex', 
+            overflowX: 'auto', 
+            overflowY: 'hidden',
+            padding: '1rem', 
+            gap: '0.75rem',
+            scrollBehavior: 'smooth',
+            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: 'thin',
+            scrollbarColor: '#cbd5e1 #f1f5f9'
+          }}>
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex flex-col items-center min-w-14 p-2 rounded-lg transition-colors ${
-                  activeCategory === category.id
-                    ? 'bg-blue-100 text-blue-600'
-                    : 'text-gray-600'
-                }`}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  minWidth: '3.5rem',
+                  padding: '0.5rem',
+                  borderRadius: '0.5rem',
+                  border: 'none',
+                  cursor: 'pointer',
+                  backgroundColor: activeCategory === category.id ? '#dbeafe' : 'transparent',
+                  color: activeCategory === category.id ? '#2563eb' : '#6b7280'
+                }}
               >
-                <span className="text-lg mb-1">{category.icon}</span>
-                <span className="text-xs font-medium whitespace-nowrap">{category.name}</span>
+                <span style={{ fontSize: '1.125rem', marginBottom: '0.25rem' }}>{category.icon}</span>
+                <span style={{ fontSize: '0.75rem', fontWeight: '500', whiteSpace: 'nowrap' }}>{category.name}</span>
               </button>
             ))}
           </div>
@@ -333,10 +415,10 @@ const App = () => {
       </div>
 
       {/* Sort Options */}
-      <div className="bg-white border-b">
-        <div className="max-w-md mx-auto p-4">
-          <div className="flex justify-between items-center">
-            <div className="flex space-x-3">
+      <div style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb' }}>
+        <div style={{ maxWidth: '28rem', margin: '0 auto', padding: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
               {[
                 { value: 'popular', label: '랭킹순', icon: TrendingUp },
                 { value: 'new', label: '최신순', icon: Clock },
@@ -345,18 +427,25 @@ const App = () => {
                 <button
                   key={value}
                   onClick={() => setSortBy(value)}
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-full text-sm transition-colors ${
-                    sortBy === value
-                      ? 'bg-blue-100 text-blue-600'
-                      : 'bg-gray-100 text-gray-600'
-                  }`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.25rem',
+                    padding: '0.5rem 0.75rem',
+                    borderRadius: '1.5rem',
+                    fontSize: '0.875rem',
+                    border: 'none',
+                    cursor: 'pointer',
+                    backgroundColor: sortBy === value ? '#dbeafe' : '#f3f4f6',
+                    color: sortBy === value ? '#2563eb' : '#6b7280'
+                  }}
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon style={{ width: '1rem', height: '1rem' }} />
                   <span>{label}</span>
                 </button>
               ))}
             </div>
-            <div className="text-sm text-gray-500">
+            <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
               총 {filteredItems.length}개
             </div>
           </div>
@@ -364,201 +453,324 @@ const App = () => {
       </div>
 
       {/* Deal Cards */}
-      <div className="max-w-md mx-auto p-4 space-y-3">
+      <div style={{ maxWidth: '28rem', margin: '0 auto', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
         {displayItems.map((item) => (
-          <div key={item.id} className="bg-white rounded-lg shadow-sm border p-3 relative">
+          <div key={item.id} style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '0.5rem', 
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)', 
+            border: '1px solid #e5e7eb', 
+            padding: '0.75rem',
+            position: 'relative'
+          }}>
+            
             {/* Admin Controls */}
             {showAdmin && (
-              <div className="absolute top-2 right-2 flex space-x-1">
+              <div style={{ position: 'absolute', top: '0.5rem', right: '0.5rem', display: 'flex', gap: '0.25rem' }}>
                 <button
                   onClick={() => setEditingItem(item.id)}
-                  className="p-1 bg-blue-100 text-blue-600 rounded"
+                  style={{ padding: '0.25rem', backgroundColor: '#dbeafe', color: '#2563eb', borderRadius: '0.25rem', border: 'none', cursor: 'pointer' }}
                 >
-                  <Edit className="w-3 h-3" />
+                  <Edit style={{ width: '0.75rem', height: '0.75rem' }} />
                 </button>
                 <button
                   onClick={() => deleteCoupon(item.id)}
-                  className="p-1 bg-red-100 text-red-600 rounded"
+                  style={{ padding: '0.25rem', backgroundColor: '#fef2f2', color: '#dc2626', borderRadius: '0.25rem', border: 'none', cursor: 'pointer' }}
                 >
-                  <Trash2 className="w-3 h-3" />
+                  <Trash2 style={{ width: '0.75rem', height: '0.75rem' }} />
                 </button>
               </div>
             )}
 
             {/* Editing Form */}
             {editingItem === item.id ? (
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-2">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
                   <input
                     defaultValue={item.title}
-                    className="px-2 py-1 border rounded text-sm"
+                    style={{ padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '0.25rem', fontSize: '0.875rem' }}
                     onBlur={(e) => updateCoupon(item.id, { title: e.target.value })}
                   />
                   <input
                     defaultValue={item.brand}
-                    className="px-2 py-1 border rounded text-sm"
+                    style={{ padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '0.25rem', fontSize: '0.875rem' }}
                     onBlur={(e) => updateCoupon(item.id, { brand: e.target.value })}
                   />
                   <input
                     defaultValue={item.discount}
-                    className="px-2 py-1 border rounded text-sm"
+                    style={{ padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '0.25rem', fontSize: '0.875rem' }}
                     onBlur={(e) => updateCoupon(item.id, { discount: e.target.value })}
                   />
                   <input
                     defaultValue={item.code}
-                    className="px-2 py-1 border rounded text-sm"
+                    style={{ padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '0.25rem', fontSize: '0.875rem' }}
                     onBlur={(e) => updateCoupon(item.id, { code: e.target.value })}
                   />
                 </div>
                 <input
                   defaultValue={item.description}
-                  className="w-full px-2 py-1 border rounded text-sm"
+                  style={{ width: '100%', padding: '0.5rem', border: '1px solid #d1d5db', borderRadius: '0.25rem', fontSize: '0.875rem', boxSizing: 'border-box' }}
                   onBlur={(e) => updateCoupon(item.id, { description: e.target.value })}
                 />
                 <button
                   onClick={() => setEditingItem(null)}
-                  className="bg-green-500 text-white px-3 py-1 rounded text-sm"
+                  style={{ backgroundColor: '#10b981', color: 'white', padding: '0.75rem', borderRadius: '0.25rem', fontSize: '0.875rem', border: 'none', cursor: 'pointer' }}
                 >
                   완료
                 </button>
               </div>
             ) : (
               <>
-                {/* First Line: 사이트명 + New + 할인조건 + XX% 할인 */}
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-2">
-                    <h3 className="font-semibold text-gray-900 text-sm">{item.title}</h3>
+                {/* First Line: 랭킹 + 사이트명 + New + 할인조건 + XX% 할인 */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+                    <span style={{ 
+                      fontSize: '0.75rem', 
+                      fontWeight: '600', 
+                      color: '#2563eb',
+                      backgroundColor: '#dbeafe',
+                      padding: '0.125rem 0.375rem',
+                      borderRadius: '0.75rem'
+                    }}>
+                      #{item.rank}
+                    </span>
+                    <h3 style={{ fontWeight: '600', color: '#111827', fontSize: '0.875rem', margin: 0 }}>{item.title}</h3>
                     {item.isNew && (
-                      <span className="px-1.5 py-0.5 bg-red-100 text-red-600 text-xs font-medium rounded-full">
+                      <span style={{ 
+                        padding: '0.125rem 0.375rem', 
+                        backgroundColor: '#fef2f2', 
+                        color: '#dc2626', 
+                        fontSize: '0.75rem', 
+                        fontWeight: '500', 
+                        borderRadius: '1rem'
+                      }}>
                         NEW
                       </span>
                     )}
-                    <p className="text-xs text-gray-600">{item.description}</p>
+                    <p style={{ 
+                      fontSize: '0.75rem', 
+                      color: '#6b7280', 
+                      margin: 0, 
+                      overflow: 'hidden', 
+                      textOverflow: 'ellipsis', 
+                      whiteSpace: 'nowrap',
+                      flex: 1
+                    }}>
+                      {item.description}
+                    </p>
                   </div>
-                  <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-2 py-1 rounded text-xs font-bold">
+                  <div style={{ 
+                    background: 'linear-gradient(to right, #ef4444, #ec4899)', 
+                    color: 'white', 
+                    padding: '0.25rem 0.5rem', 
+                    borderRadius: '0.25rem', 
+                    fontSize: '0.75rem', 
+                    fontWeight: 'bold',
+                    flexShrink: 0,
+                    marginLeft: '0.5rem'
+                  }}>
                     {item.discount} 할인
                   </div>
                 </div>
 
                 {/* Second Line: 별 + 사람 + 기간 + 할인코드 + 복사하기 + 좋아요 */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3 text-xs text-gray-500">
-                    <span className="flex items-center">
-                      <Star className="w-3 h-3 text-yellow-400 fill-current mr-1" />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.75rem', color: '#6b7280' }}>
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
+                      <Star style={{ width: '0.75rem', height: '0.75rem', color: '#fbbf24', marginRight: '0.25rem' }} />
                       {item.popularity}
                     </span>
-                    <span className="flex items-center">
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
                       👥 {(item.clicks / 1000).toFixed(1)}k
                     </span>
-                    <span className="flex items-center">
+                    <span style={{ display: 'flex', alignItems: 'center' }}>
                       📅 ~{item.validUntil.slice(5)}
-   </span>
-                 </div>
+                    </span>
+                  </div>
 
-                 <div className="flex items-center space-x-2">
-                   <code className="bg-gray-100 px-2 py-1 rounded text-xs font-mono font-bold">
-                     {item.code}
-                   </code>
-                   <button
-                     onClick={() => copyCode(item.code)}
-                     className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium"
-                   >
-                     복사
-                   </button>
-                   <button
-                     onClick={() => toggleFavorite(item.id)}
-                     className="p-1"
-                   >
-                     <Heart
-                       className={`w-4 h-4 ${
-                         favoriteItems.has(item.id)
-                           ? 'text-red-500 fill-current'
-                           : 'text-gray-400'
-                       }`}
-                     />
-                   </button>
-                 </div>
-               </div>
-             </>
-           )}
-         </div>
-       ))}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <code style={{ 
+                      backgroundColor: '#f3f4f6', 
+                      padding: '0.25rem 0.5rem', 
+                      borderRadius: '0.25rem', 
+                      fontSize: '0.75rem', 
+                      fontFamily: 'monospace', 
+                      fontWeight: 'bold'
+                    }}>
+                      {item.code}
+                    </code>
+                    <button
+                      onClick={() => copyCode(item.code)}
+                      style={{ 
+                        backgroundColor: '#3b82f6', 
+                        color: 'white', 
+                        padding: '0.25rem 0.5rem', 
+                        borderRadius: '0.25rem', 
+                        fontSize: '0.75rem', 
+                        fontWeight: '500',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      복사
+                    </button>
+                    <button
+                      onClick={() => toggleFavorite(item.id)}
+                      style={{ 
+                        padding: '0.25rem',
+                        border: 'none',
+                        background: 'none',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <Heart
+                        fill={favoriteItems.has(item.id)}
+                        style={{ 
+                          width: '1rem', 
+                          height: '1rem'
+                        }}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
 
-       {/* Show More Button */}
-       {filteredItems.length > 20 && (
-         <div className="text-center py-4">
-           <button
-             onClick={() => setShowAllItems(!showAllItems)}
-             className="flex items-center justify-center space-x-2 mx-auto bg-blue-500 text-white px-6 py-3 rounded-lg font-medium"
-           >
-             <span>
-               {showAllItems 
-                 ? `Top 20만 보기` 
-                 : `전체 ${filteredItems.length}개 보기`
-               }
-             </span>
-             {showAllItems ? (
-               <ChevronUp className="w-4 h-4" />
-             ) : (
-               <ChevronDown className="w-4 h-4" />
-             )}
-           </button>
-         </div>
-       )}
-     </div>
+        {/* Show More Button */}
+        {filteredItems.length > 20 && (
+          <div style={{ textAlign: 'center', paddingTop: '1rem' }}>
+            <button
+              onClick={() => setShowAllItems(!showAllItems)}
+              style={{ 
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                margin: '0 auto',
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '0.5rem',
+                fontWeight: '500',
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              <span>
+                {showAllItems 
+                  ? `Top 20만 보기` 
+                  : `전체 ${filteredItems.length}개 보기`
+                }
+              </span>
+              {showAllItems ? (
+                <ChevronUp style={{ width: '1rem', height: '1rem' }} />
+              ) : (
+                <ChevronDown style={{ width: '1rem', height: '1rem' }} />
+              )}
+            </button>
+          </div>
+        )}
+      </div>
 
-     {/* Bottom Navigation */}
-     <div className="fixed bottom-0 left-0 right-0 bg-white border-t">
-       <div className="max-w-md mx-auto">
-         <div className="flex justify-around py-2">
-           {[
-             { name: '홈', icon: '🏠', active: true },
-             { name: '카테고리', icon: '📂', active: false },
-             { name: '즐겨찾기', icon: '❤️', active: false },
-             { name: '마이페이지', icon: '👤', active: false }
-           ].map((tab) => (
-             <button
-               key={tab.name}
-               className={`flex flex-col items-center py-2 px-4 ${
-                 tab.active ? 'text-blue-600' : 'text-gray-500'
-               }`}
-             >
-               <span className="text-xl mb-1">{tab.icon}</span>
-               <span className="text-xs">{tab.name}</span>
-             </button>
-           ))}
-         </div>
-       </div>
-     </div>
+      {/* Bottom Navigation */}
+      <div style={{ 
+        position: 'fixed', 
+        bottom: 0, 
+        left: 0, 
+        right: 0, 
+        backgroundColor: 'white', 
+        borderTop: '1px solid #e5e7eb',
+        zIndex: 1000
+      }}>
+        <div style={{ maxWidth: '28rem', margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-around', paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
+            {[
+              { name: '홈', icon: '🏠', active: true },
+              { name: '카테고리', icon: '📂', active: false },
+              { name: '즐겨찾기', icon: '❤️', active: false },
+              { name: '마이페이지', icon: '👤', active: false }
+            ].map((tab) => (
+              <button
+                key={tab.name}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: '0.5rem 1rem',
+                  border: 'none',
+                  background: 'none',
+                  cursor: 'pointer',
+                  color: tab.active ? '#2563eb' : '#6b7280'
+                }}
+              >
+                <span style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{tab.icon}</span>
+                <span style={{ fontSize: '0.75rem' }}>{tab.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
 
-     {/* Footer with Company Info */}
-     <div className="bg-gray-100 py-8 mt-8 mb-16">
-       <div className="max-w-md mx-auto px-4 text-center">
-         <div className="flex items-center justify-center space-x-2 mb-4">
-           <div className="relative w-6 h-6" style={{transform: 'perspective(100px) rotateX(15deg) rotateY(15deg)'}}>
-             <div className="absolute w-5 h-5 bg-blue-500 border border-blue-600" style={{transform: 'translateZ(10px)'}}></div>
-             <div className="absolute w-5 h-5 bg-blue-400 border border-blue-500" style={{transform: 'rotateY(90deg) translateZ(10px)'}}></div>
-             <div className="absolute w-5 h-5 bg-blue-300 border border-blue-400" style={{transform: 'rotateX(90deg) translateZ(10px)'}}></div>
-           </div>
-           <h3 className="font-bold text-gray-900">쿠폰랩</h3>
-         </div>
-         <p className="text-sm text-gray-600 mb-2">할인코드 전문 연구소</p>
-         <p className="text-xs text-gray-500 mb-4">
-           검증된 할인 정보만을 제공하여<br />
-           현명한 소비를 돕는 서비스입니다.
-         </p>
-         <div className="flex justify-center space-x-4 text-xs text-gray-400">
-           <a href="#" className="hover:text-gray-600">이용약관</a>
-           <a href="#" className="hover:text-gray-600">개인정보처리방침</a>
-           <a href="#" className="hover:text-gray-600">문의하기</a>
-         </div>
-         <p className="text-xs text-gray-400 mt-4">
-           © 2025 CouponLab. All rights reserved.
-         </p>
-       </div>
-     </div>
-   </div>
- );
+      {/* Footer with Company Info */}
+      <div style={{ backgroundColor: '#f3f4f6', paddingTop: '2rem', paddingBottom: '2rem', marginTop: '2rem', marginBottom: '4rem' }}>
+        <div style={{ maxWidth: '28rem', margin: '0 auto', padding: '0 1rem', textAlign: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+            <div style={{ 
+              position: 'relative', 
+              width: '1.5rem', 
+              height: '1.5rem',
+              transform: 'perspective(100px) rotateX(15deg) rotateY(15deg)'
+            }}>
+              <div style={{
+                position: 'absolute',
+                width: '1.25rem',
+                height: '1.25rem',
+                backgroundColor: '#3b82f6',
+                border: '1px solid #2563eb',
+                transform: 'translateZ(10px)'
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '1.25rem',
+                height: '1.25rem',
+                backgroundColor: '#60a5fa',
+                border: '1px solid #3b82f6',
+                transform: 'rotateY(90deg) translateZ(10px)'
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                width: '1.25rem',
+                height: '1.25rem',
+                backgroundColor: '#93c5fd',
+                border: '1px solid #60a5fa',
+                transform: 'rotateX(90deg) translateZ(10px)'
+              }}></div>
+            </div>
+            <h3 style={{ fontWeight: 'bold', color: '#111827', margin: 0 }}>쿠폰랩</h3>
+          </div>
+          <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '0.5rem' }}>할인코드 전문 연구소</p>
+          <p style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '1rem', lineHeight: '1.5' }}>
+            검증된 할인 정보만을 제공하여<br />
+            현명한 소비를 돕는 서비스입니다.
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', fontSize: '0.75rem', color: '#9ca3af' }}>
+            <a href="#" style={{ color: '#9ca3af', textDecoration: 'none' }}>이용약관</a>
+            <a href="#" style={{ color: '#9ca3af', textDecoration: 'none' }}>개인정보처리방침</a>
+            <a href="#" style={{ color: '#9ca3af', textDecoration: 'none' }}>문의하기</a>
+          </div>
+          <p style={{ fontSize: '0.75rem', color: '#9ca3af', marginTop: '1rem', margin: 0 }}>
+            © 2025 CouponLab. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default App;
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <CouponLabApp />
+  </React.StrictMode>
+);
