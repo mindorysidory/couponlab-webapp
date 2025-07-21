@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Heart, Search, Copy, Star, TrendingUp, Clock, Gift, ChevronDown, ChevronUp, Plus, Edit, Trash2, Save } from 'lucide-react';
 
 const CouponLabApp = () => {
- import React, { useState, useEffect } from 'react';
-import { Heart, Search, Copy, Star, TrendingUp, Clock, Gift, ChevronDown, ChevronUp, Plus, Edit, Trash2, Save } from 'lucide-react';
-
-const CouponLabApp = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [favoriteItems, setFavoriteItems] = useState(new Set());
   const [searchQuery, setSearchQuery] = useState('');
@@ -67,37 +63,11 @@ const CouponLabApp = () => {
       { id: 18, title: 'Udemy', category: 'education', discount: '80%', code: 'UDEMY80', description: '온라인 강의 대폭 할인', validUntil: '2025.08.05', popularity: 4.1, isNew: false, clicks: 4987, brand: 'Udemy', rank: 18 },
       { id: 19, title: 'Zoom Pro', category: 'productivity', discount: '30%', code: 'ZOOM30', description: '화상회의 프로 플랜', validUntil: '2025.08.25', popularity: 4.3, isNew: false, clicks: 4876, brand: 'Zoom', rank: 19 },
       { id: 20, title: '11번가', category: 'electronics', discount: '15%', code: '11ST15', description: '전자제품 쿠폰 할인', validUntil: '2025.08.12', popularity: 4.0, isNew: false, clicks: 4765, brand: '11번가', rank: 20 },
-      // 추가 30개 더...
       { id: 21, title: 'Grammarly', category: 'productivity', discount: '50%', code: 'GRAMMAR50', description: '영어 문법 검사 도구', validUntil: '2025.08.20', popularity: 4.2, isNew: false, clicks: 4654, brand: 'Grammarly', rank: 21 },
       { id: 22, title: 'Dropbox Plus', category: 'cloud', discount: '40%', code: 'DROPBOX40', description: '클라우드 스토리지 할인', validUntil: '2025.08.30', popularity: 4.1, isNew: false, clicks: 4543, brand: 'Dropbox', rank: 22 },
       { id: 23, title: 'Shopify', category: 'dev', discount: '3개월', code: 'SHOPIFY3M', description: '이커머스 플랫폼 무료', validUntil: '2025.09.15', popularity: 4.4, isNew: false, clicks: 4432, brand: 'Shopify', rank: 23 },
       { id: 24, title: 'Webflow', category: 'design', discount: '30%', code: 'WEBFLOW30', description: '노코드 웹사이트 빌더', validUntil: '2025.08.25', popularity: 4.3, isNew: false, clicks: 4321, brand: 'Webflow', rank: 24 },
-      { id: 25, title: 'Claude Pro', category: 'ai', discount: '25%', code: 'CLAUDE25', description: 'AI 어시스턴트 프로 플랜', validUntil: '2025.08.18', popularity: 4.6, isNew: true, clicks: 4210, brand: 'Anthropic', rank: 25 },
-      { id: 26, title: 'Discord Nitro', category: 'subscription', discount: '20%', code: 'DISCORD20', description: '게이밍 커뮤니케이션', validUntil: '2025.08.15', popularity: 3.9, isNew: false, clicks: 4109, brand: 'Discord', rank: 26 },
-      { id: 27, title: 'Linear', category: 'productivity', discount: '6개월', code: 'LINEAR6M', description: '이슈 트래킹 툴 할인', validUntil: '2025.09.01', popularity: 4.5, isNew: true, clicks: 3998, brand: 'Linear', rank: 27 },
-      { id: 28, title: 'Framer', category: 'design', discount: '35%', code: 'FRAMER35', description: '인터랙티브 디자인 툴', validUntil: '2025.08.20', popularity: 4.4, isNew: false, clicks: 3887, brand: 'Framer', rank: 28 },
-      { id: 29, title: 'Vercel Pro', category: 'dev', discount: '$100', code: 'VERCEL100', description: '프론트엔드 배포 플랫폼', validUntil: '2025.08.31', popularity: 4.3, isNew: false, clicks: 3776, brand: 'Vercel', rank: 29 },
-      { id: 30, title: 'YouTube Premium', category: 'subscription', discount: '2개월', code: 'YT2M', description: '광고 없는 유튜브', validUntil: '2025.08.10', popularity: 4.0, isNew: false, clicks: 3665, brand: 'YouTube', rank: 30 },
-      { id: 31, title: '29CM', category: 'fashion', discount: '20%', code: '29CM20', description: '패션 아이템 할인', validUntil: '2025.08.25', popularity: 4.2, isNew: false, clicks: 3554, brand: '29CM', rank: 31 },
-      { id: 32, title: 'W컨셉', category: 'fashion', discount: '25%', code: 'WCONCEPT25', description: '디자이너 브랜드 할인', validUntil: '2025.08.20', popularity: 4.3, isNew: false, clicks: 3443, brand: 'W컨셉', rank: 32 },
-      { id: 33, title: '요기요', category: 'food', discount: '5000원', code: 'YOGIYO5K', description: '첫 주문 5천원 할인', validUntil: '2025.08.15', popularity: 4.1, isNew: false, clicks: 3332, brand: '요기요', rank: 33 },
-      { id: 34, title: 'G마켓', category: 'electronics', discount: '10%', code: 'GMARKET10', description: '전 상품 10% 할인', validUntil: '2025.08.30', popularity: 3.9, isNew: false, clicks: 3221, brand: 'G마켓', rank: 34 },
-      { id: 35, title: '옥션', category: 'electronics', discount: '15%', code: 'AUCTION15', description: '경매 낙찰 할인', validUntil: '2025.08.28', popularity: 3.8, isNew: false, clicks: 3110, brand: '옥션', rank: 35 },
-      { id: 36, title: '인터파크', category: 'travel', discount: '30%', code: 'INTERPARK30', description: '항공료 할인', validUntil: '2025.09.10', popularity: 4.2, isNew: false, clicks: 2999, brand: '인터파크', rank: 36 },
-      { id: 37, title: '여기어때', category: 'travel', discount: '20%', code: 'GOODCHOICE20', description: '숙박 예약 할인', validUntil: '2025.08.22', popularity: 4.4, isNew: false, clicks: 2888, brand: '여기어때', rank: 37 },
-      { id: 38, title: '야놀자', category: 'travel', discount: '25%', code: 'YANOLJA25', description: '호텔 예약 할인', validUntil: '2025.08.18', popularity: 4.3, isNew: false, clicks: 2777, brand: '야놀자', rank: 38 },
-      { id: 39, title: '화해', category: 'beauty', discount: '15%', code: 'HWAHAE15', description: '뷰티 제품 할인', validUntil: '2025.08.26', popularity: 4.1, isNew: false, clicks: 2666, brand: '화해', rank: 39 },
-      { id: 40, title: '롯데온', category: 'home', discount: '20%', code: 'LOTTEON20', description: '생활용품 할인', validUntil: '2025.08.24', popularity: 4.0, isNew: false, clicks: 2555, brand: '롯데온', rank: 40 },
-      { id: 41, title: 'SSG닷컴', category: 'home', discount: '25%', code: 'SSG25', description: '홈&리빙 할인', validUntil: '2025.08.27', popularity: 4.2, isNew: false, clicks: 2444, brand: 'SSG', rank: 41 },
-      { id: 42, title: '현대Hmall', category: 'home', discount: '30%', code: 'HMALL30', description: '가전제품 할인', validUntil: '2025.08.29', popularity: 4.1, isNew: false, clicks: 2333, brand: '현대Hmall', rank: 42 },
-      { id: 43, title: 'CJ온스타일', category: 'fashion', discount: '35%', code: 'CJONSTYLE35', description: '패션 의류 할인', validUntil: '2025.08.21', popularity: 4.0, isNew: false, clicks: 2222, brand: 'CJ온스타일', rank: 43 },
-      { id: 44, title: 'NS홈쇼핑', category: 'home', discount: '40%', code: 'NSHOME40', description: '생활가전 할인', validUntil: '2025.08.23', popularity: 3.9, isNew: false, clicks: 2111, brand: 'NS홈쇼핑', rank: 44 },
-      { id: 45, title: 'GS SHOP', category: 'electronics', discount: '20%', code: 'GSSHOP20', description: '전자제품 할인', validUntil: '2025.08.19', popularity: 3.8, isNew: false, clicks: 2000, brand: 'GS SHOP', rank: 45 },
-      { id: 46, title: '홈앤쇼핑', category: 'home', discount: '25%', code: 'HOMENSHOP25', description: '홈쇼핑 특가', validUntil: '2025.08.17', popularity: 3.7, isNew: false, clicks: 1999, brand: '홈앤쇼핑', rank: 46 },
-      { id: 47, title: '롯데홈쇼핑', category: 'beauty', discount: '30%', code: 'LOTTEHOME30', description: '뷰티 특가', validUntil: '2025.08.16', popularity: 4.1, isNew: false, clicks: 1888, brand: '롯데홈쇼핑', rank: 47 },
-      { id: 48, title: '신세계몰', category: 'fashion', discount: '20%', code: 'SHINSEGAE20', description: '명품 브랜드 할인', validUntil: '2025.08.14', popularity: 4.5, isNew: false, clicks: 1777, brand: '신세계몰', rank: 48 },
-      { id: 49, title: '현대백화점', category: 'fashion', discount: '25%', code: 'HYUNDAI25', description: '백화점 브랜드 할인', validUntil: '2025.08.13', popularity: 4.4, isNew: false, clicks: 1666, brand: '현대백화점', rank: 49 },
-      { id: 50, title: '갤러리아', category: 'fashion', discount: '30%', code: 'GALLERIA30', description: '럭셔리 브랜드 할인', validUntil: '2025.08.11', popularity: 4.6, isNew: false, clicks: 1555, brand: '갤러리아', rank: 50 }
+      { id: 25, title: 'Claude Pro', category: 'ai', discount: '25%', code: 'CLAUDE25', description: 'AI 어시스턴트 프로 플랜', validUntil: '2025.08.18', popularity: 4.6, isNew: true, clicks: 4210, brand: 'Anthropic', rank: 25 }
     ];
     
     // 실제 환경에서는 localStorage 대신 실제 데이터베이스 사용
@@ -298,16 +268,6 @@ const CouponLabApp = () => {
                     value={newCoupon.validUntil}
                     onChange={(e) => setNewCoupon({...newCoupon, validUntil: e.target.value})}
                   />
-                  <input
-                    placeholder="평점 (4.5)"
-                    type="number"
-                    step="0.1"
-                    min="1"
-                    max="5"
-                    className="px-3 py-2 border rounded text-sm"
-                    value={newCoupon.popularity}
-                    onChange={(e) => setNewCoupon({...newCoupon, popularity: parseFloat(e.target.value)})}
-                  />
                 </div>
                 <input
                   placeholder="설명"
@@ -492,117 +452,113 @@ const CouponLabApp = () => {
                     </span>
                     <span className="flex items-center">
                       📅 ~{item.validUntil.slice(5)}
-                    </span>
-                  </div>
+   </span>
+                 </div>
 
-                  <div className="flex items-center space-x-2">
-                    <code className="bg-gray-100 px-2 py-1 rounded text-xs font-mono font-bold">
-                      {item.code}
-                    </code>
-                    <button
-                      onClick={() => copyCode(item.code)}
-                      className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium"
-                    >
-                      복사
-                    </button>
-                    <button
-                      onClick={() => toggleFavorite(item.id)}
-                      className="p-1"
-                    >
-                      <Heart
-                        className={`w-4 h-4 ${
-                          favoriteItems.has(item.id)
-                            ? 'text-red-500 fill-current'
-                            : 'text-gray-400'
-                        }`}
-                      />
-                    </button>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        ))}
+                 <div className="flex items-center space-x-2">
+                   <code className="bg-gray-100 px-2 py-1 rounded text-xs font-mono font-bold">
+                     {item.code}
+                   </code>
+                   <button
+                     onClick={() => copyCode(item.code)}
+                     className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium"
+                   >
+                     복사
+                   </button>
+                   <button
+                     onClick={() => toggleFavorite(item.id)}
+                     className="p-1"
+                   >
+                     <Heart
+                       className={`w-4 h-4 ${
+                         favoriteItems.has(item.id)
+                           ? 'text-red-500 fill-current'
+                           : 'text-gray-400'
+                       }`}
+                     />
+                   </button>
+                 </div>
+               </div>
+             </>
+           )}
+         </div>
+       ))}
 
-        {/* Show More Button */}
-        {filteredItems.length > 20 && (
-          <div className="text-center py-4">
-            <button
-              onClick={() => setShowAllItems(!showAllItems)}
-              className="flex items-center justify-center space-x-2 mx-auto bg-blue-500 text-white px-6 py-3 rounded-lg font-medium"
-            >
-              <span>
-                {showAllItems 
-                  ? `Top 20만 보기` 
-                  : `전체 ${filteredItems.length}개 보기`
-                }
-              </span>
-              {showAllItems ? (
-                <ChevronUp className="w-4 h-4" />
-              ) : (
-                <ChevronDown className="w-4 h-4" />
-              )}
-            </button>
-          </div>
-        )}
-      </div>
+       {/* Show More Button */}
+       {filteredItems.length > 20 && (
+         <div className="text-center py-4">
+           <button
+             onClick={() => setShowAllItems(!showAllItems)}
+             className="flex items-center justify-center space-x-2 mx-auto bg-blue-500 text-white px-6 py-3 rounded-lg font-medium"
+           >
+             <span>
+               {showAllItems 
+                 ? `Top 20만 보기` 
+                 : `전체 ${filteredItems.length}개 보기`
+               }
+             </span>
+             {showAllItems ? (
+               <ChevronUp className="w-4 h-4" />
+             ) : (
+               <ChevronDown className="w-4 h-4" />
+             )}
+           </button>
+         </div>
+       )}
+     </div>
 
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t">
-        <div className="max-w-md mx-auto">
-          <div className="flex justify-around py-2">
-            {[
-              { name: '홈', icon: '🏠', active: true },
-              { name: '카테고리', icon: '📂', active: false },
-              { name: '즐겨찾기', icon: '❤️', active: false },
-              { name: '마이페이지', icon: '👤', active: false }
-            ].map((tab) => (
-              <button
-                key={tab.name}
-                className={`flex flex-col items-center py-2 px-4 ${
-                  tab.active ? 'text-blue-600' : 'text-gray-500'
-                }`}
-              >
-                <span className="text-xl mb-1">{tab.icon}</span>
-                <span className="text-xs">{tab.name}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+     {/* Bottom Navigation */}
+     <div className="fixed bottom-0 left-0 right-0 bg-white border-t">
+       <div className="max-w-md mx-auto">
+         <div className="flex justify-around py-2">
+           {[
+             { name: '홈', icon: '🏠', active: true },
+             { name: '카테고리', icon: '📂', active: false },
+             { name: '즐겨찾기', icon: '❤️', active: false },
+             { name: '마이페이지', icon: '👤', active: false }
+           ].map((tab) => (
+             <button
+               key={tab.name}
+               className={`flex flex-col items-center py-2 px-4 ${
+                 tab.active ? 'text-blue-600' : 'text-gray-500'
+               }`}
+             >
+               <span className="text-xl mb-1">{tab.icon}</span>
+               <span className="text-xs">{tab.name}</span>
+             </button>
+           ))}
+         </div>
+       </div>
+     </div>
 
-      {/* Footer with Company Info */}
-      <div className="bg-gray-100 py-8 mt-8 mb-16">
-        <div className="max-w-md mx-auto px-4 text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="relative w-6 h-6" style={{transform: 'perspective(100px) rotateX(15deg) rotateY(15deg)'}}>
-              <div className="absolute w-5 h-5 bg-blue-500 border border-blue-600" style={{transform: 'translateZ(10px)'}}></div>
-              <div className="absolute w-5 h-5 bg-blue-400 border border-blue-500" style={{transform: 'rotateY(90deg) translateZ(10px)'}}></div>
-              <div className="absolute w-5 h-5 bg-blue-300 border border-blue-400" style={{transform: 'rotateX(90deg) translateZ(10px)'}}></div>
-            </div>
-            <h3 className="font-bold text-gray-900">쿠폰랩</h3>
-          </div>
-          <p className="text-sm text-gray-600 mb-2">할인코드 전문 연구소</p>
-          <p className="text-xs text-gray-500 mb-4">
-            검증된 할인 정보만을 제공하여<br />
-            현명한 소비를 돕는 서비스입니다.
-          </p>
-          <div className="flex justify-center space-x-4 text-xs text-gray-400">
-            <a href="#" className="hover:text-gray-600">이용약관</a>
-            <a href="#" className="hover:text-gray-600">개인정보처리방침</a>
-            <a href="#" className="hover:text-gray-600">문의하기</a>
-          </div>
-          <p className="text-xs text-gray-400 mt-4">
-            © 2025 CouponLab. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default CouponLabApp;
-                  
+     {/* Footer with Company Info */}
+     <div className="bg-gray-100 py-8 mt-8 mb-16">
+       <div className="max-w-md mx-auto px-4 text-center">
+         <div className="flex items-center justify-center space-x-2 mb-4">
+           <div className="relative w-6 h-6" style={{transform: 'perspective(100px) rotateX(15deg) rotateY(15deg)'}}>
+             <div className="absolute w-5 h-5 bg-blue-500 border border-blue-600" style={{transform: 'translateZ(10px)'}}></div>
+             <div className="absolute w-5 h-5 bg-blue-400 border border-blue-500" style={{transform: 'rotateY(90deg) translateZ(10px)'}}></div>
+             <div className="absolute w-5 h-5 bg-blue-300 border border-blue-400" style={{transform: 'rotateX(90deg) translateZ(10px)'}}></div>
+           </div>
+           <h3 className="font-bold text-gray-900">쿠폰랩</h3>
+         </div>
+         <p className="text-sm text-gray-600 mb-2">할인코드 전문 연구소</p>
+         <p className="text-xs text-gray-500 mb-4">
+           검증된 할인 정보만을 제공하여<br />
+           현명한 소비를 돕는 서비스입니다.
+         </p>
+         <div className="flex justify-center space-x-4 text-xs text-gray-400">
+           <a href="#" className="hover:text-gray-600">이용약관</a>
+           <a href="#" className="hover:text-gray-600">개인정보처리방침</a>
+           <a href="#" className="hover:text-gray-600">문의하기</a>
+         </div>
+         <p className="text-xs text-gray-400 mt-4">
+           © 2025 CouponLab. All rights reserved.
+         </p>
+       </div>
+     </div>
+   </div>
+ );
 };
 
 export default CouponLabApp;
