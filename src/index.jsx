@@ -227,7 +227,7 @@ const CouponLabApp = () => {
                 }}
               >
                   <span style={{ fontSize: '1.125rem', marginBottom: '0.25rem' }}>{category.icon}</span>
-                 <span style={{ fontSize: '0.75rem', fontWeight: '500', whiteSpace: 'nowrap' }}>{category.name}</span>
+                <span style={{ fontSize: '0.75rem', fontWeight: '500', whiteSpace: 'nowrap' }}>{category.name}</span>
               </button>
             ))}
           </div>
@@ -236,8 +236,6 @@ const CouponLabApp = () => {
 
       {/* Sort Options */}
       <div style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb' }}>
-        <div style={{ maxWidth: '28rem', margin: '0 auto', padding: '1rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               {[
                 { value: 'popular', label: '랭킹순', icon: TrendingUp },
