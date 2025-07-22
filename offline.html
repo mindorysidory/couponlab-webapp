@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오프라인 - 쿠폰랩</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .offline-container {
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .offline-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .offline-message {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .offline-features {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .offline-features h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .offline-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .offline-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offline-features li:before {
+            content: "✓";
+            background: rgba(52, 168, 83, 0.8);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .retry-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+
+        .retry-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .home-btn {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .network-status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .network-status.online {
+            background: rgba(52, 168, 83, 0.2);
+            border: 1px solid rgba(52, 168, 83, 0.3);
+        }
+
+        .network-status.offline {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .offline-container {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 480px) {
+            .offline-container {
+                padding: 30px 20px;
+                margin: 0 10px;
+            }
+            
+            .offline-icon {
+                font-size: 48px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .retry-btn, .home-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+                margin: 5px;
+                display: block;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">🔌</div>
+        <h1>오프라인 상태입니다</h1>
+        <p class="offline-message">
+            인터넷 연결을 확인해주세요.<br>
+            쿠폰랩은 오프라인에서도 일부 기능을 이용하실 수 있습니다.
+        </p>
+        
+        <div class="offline-features">
+            <h3>오프라인에서 가능한 기능</h3>
+            <ul>
+                <li>저장된 쿠폰 목록 보기</li>
+                <li>즐겨찾기한 쿠폰 확인</li>
+                <li>쿠폰 코드 복사하기</li>
+                <li>검색 기록 확인</li>
+                <li>앱 설정 변경</li>
+            </ul>
+        </div>
+
+        <div>
+            <button class="retry-btn" onclick="retryConnection()">
+                🔄 다시 시도
+            </button>
+            <a href="/" class="home-btn">
+                🏠 홈으로 가기
+            </a>
+        </div>
+
+        <div id="networkStatus" class="network-status offline">
+            📡 네트워크 상태: 오프라인
+        </div>
+    </div>
+
+    <script>
+        // 네트워크 상태 모니터링
+        function updateNetworkStatus() {
+            const statusElement = document.getElementById('networkStatus');
+            
+            if (navigator.onLine) {
+                statusElement.className = 'network-status online';
+                statusElement.innerHTML = '📶 네트워크 상태: 온라인';
+                
+                // 자동으로 홈페이지로 리디렉션
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1000);
+            } else {
+                statusElement.className = 'network-status offline';
+                statusElement.innerHTML = '📡 네트워크 상태: 오프라인';
+            }
+        }
+
+        // 연결 재시도
+        function retryConnection() {
+            const retryBtn = document.querySelector('.retry-btn');
+            retryBtn.innerHTML = '🔄 확인 중...';
+            retryBtn.disabled = true;
+            
+            // 간단한 연결 테스트
+            fetch('/', { 
+                method: 'HEAD',
+                cache: 'no-cache'
+            })
+            .then(() => {
+                window.location.href = '/';
+            })
+            .catch(() => {
+                retryBtn.innerHTML = '🔄 다시 시도';
+                retryBtn.disabled = false;
+                
+                // 실패 시 사용자에게 알림
+                showMessage('아직 연결되지 않았습니다. 잠시 후 다시 시도해주세요.');
+            });
+        }
+
+        // 메시지 표시
+        function showMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(255, 107, 107, 0.9);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 20px;
+                font-size: 14px;
+                z-index: 1000;
+                animation: fadeIn 0.3s ease-out;
+            `;
+            messageDiv.textContent = text;
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+
+        // 이벤트 리스너 등록
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        
+        // 초기 상태 확인
+        document.addEventListener('DOMContentLoaded', updateNetworkStatus);
+        
+        // 주기적으로 연결 상태 확인 (30초마다)
+        setInterval(() => {
+            if (!navigator.onLine) {
+                retryConnection();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
