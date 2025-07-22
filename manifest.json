@@ -1,0 +1,102 @@
+{
+  "name": "쿠폰랩 - 할인 쿠폰 모음",
+  "short_name": "쿠폰랩",
+  "description": "최고의 할인 쿠폰과 프로모션을 한곳에서!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4285f4",
+  "orientation": "portrait-primary",
+  "categories": ["shopping", "lifestyle", "productivity"],
+  "lang": "ko-KR",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "인기 쿠폰",
+      "short_name": "인기 쿠폰",
+      "description": "가장 인기 있는 쿠폰들을 바로 확인",
+      "url": "/popular",
+      "icons": [
+        {
+          "src": "/icons/popular-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "최신 쿠폰",
+      "short_name": "최신 쿠폰",
+      "description": "새로 등록된 쿠폰들을 바로 확인",
+      "url": "/latest",
+      "icons": [
+        {
+          "src": "/icons/latest-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "내 쿠폰",
+      "short_name": "내 쿠폰",
+      "description": "저장한 쿠폰들을 바로 확인",
+      "url": "/my-coupons",
+      "icons": [
+        {
+          "src": "/icons/my-coupons-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
