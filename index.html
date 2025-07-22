@@ -1,14 +1,1121 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="쿠폰랩 - 검증된 할인코드만을 제공하는 전문 연구소" />
-    <title>쿠폰랩 - 할인코드 전문 연구소</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/index.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쿠폰랩 - 최고의 할인 쿠폰 모음</title>
+    
+    <!-- PWA 메타 태그들 -->
+    <meta name="description" content="최신 할인 쿠폰과 프로모션을 한곳에서! 쿠폰랩에서 최대 90% 할인 혜택을 누리세요.">
+    <meta name="theme-color" content="#4285f4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="쿠폰랩">
+    <meta name="msapplication-TileColor" content="#4285f4">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- 매니페스트 링크 -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- 파비콘 및 앱 아이콘들 -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57.png">
+    
+    <!-- 스플래시 화면 (iOS) -->
+    <link rel="apple-touch-startup-image" href="/icons/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-1668x2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-1536x2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* PWA 설치 배너 */
+        .install-banner {
+            background: linear-gradient(45deg, #4285f4, #34a853);
+            color: white;
+            padding: 12px 16px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .install-banner.show {
+            display: flex;
+        }
+
+        .install-banner-text {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .install-banner-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background 0.3s;
+        }
+
+        .install-banner-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .close-banner {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        /* 오프라인 표시 */
+        .offline-indicator {
+            background: #ff6b6b;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            display: none;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .offline-indicator.show {
+            display: block;
+        }
+
+        /* 업데이트 가능 표시 */
+        .update-available {
+            background: #4ecdc4;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            display: none;
+            position: sticky;
+            top: 0;
+            z-index: 998;
+            cursor: pointer;
+        }
+
+        .update-available.show {
+            display: block;
+        }
+
+        /* 헤더 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 16px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        /* 검색 바 */
+        .search-container {
+            padding: 16px;
+            background: white;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid #e1e8ed;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #4285f4;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8899a6;
+        }
+
+        /* 카테고리 필터 */
+        .categories {
+            padding: 0 16px 16px;
+            background: white;
+        }
+
+        .category-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 8px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-item {
+            background: #f8f9fa;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .category-item.active {
+            background: #4285f4;
+            color: white;
+        }
+
+        /* 필터 태그 */
+        .filter-tags {
+            padding: 0 16px;
+            background: white;
+        }
+
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin: 4px 8px 4px 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 쿠폰 리스트 */
+        .coupon-list {
+            padding: 16px;
+            background: #f8f9fa;
+            min-height: 400px;
+        }
+
+        .coupon-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .coupon-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .coupon-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .coupon-rank {
+            background: #4285f4;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .coupon-title {
+            flex: 1;
+            margin: 0 12px;
+        }
+
+        .coupon-title h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .coupon-discount {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .coupon-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: #8899a6;
+            margin-bottom: 8px;
+        }
+
+        .coupon-stats {
+            display: flex;
+            gap: 12px;
+        }
+
+        .coupon-brand {
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .coupon-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #4285f4;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #3367d6;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #e9ecef;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        /* 로딩 상태 */
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #8899a6;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4285f4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        /* 하단 네비게이션 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-top: 1px solid #e1e8ed;
+            display: flex;
+            padding: 8px 0;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+            transition: color 0.3s;
+            text-decoration: none;
+            color: #8899a6;
+        }
+
+        .nav-item.active {
+            color: #4285f4;
+        }
+
+        .nav-item span {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item small {
+            font-size: 11px;
+        }
+
+        /* 애니메이션 */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 360px) {
+            .coupon-card {
+                padding: 12px;
+            }
+            
+            .coupon-title h3 {
+                font-size: 14px;
+            }
+        }
+
+        /* 다크모드 지원 */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            }
+            
+            .container {
+                background: #1a1a1a;
+                color: #e0e0e0;
+            }
+            
+            .coupon-card {
+                background: #2d2d2d;
+                color: #e0e0e0;
+            }
+            
+            .search-input {
+                background: #2d2d2d;
+                border-color: #444;
+                color: #e0e0e0;
+            }
+        }
+
+        /* PWA 설치 완료 후 상태 표시줄 여백 */
+        @media (display-mode: standalone) {
+            .header {
+                padding-top: env(safe-area-inset-top, 20px);
+            }
+            
+            .bottom-nav {
+                padding-bottom: env(safe-area-inset-bottom, 8px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PWA 설치 배너 -->
+    <div id="installBanner" class="install-banner">
+        <div class="install-banner-text">
+            📱 쿠폰랩을 홈 화면에 추가하여 더 빠르게 이용하세요!
+        </div>
+        <button id="installBtn" class="install-banner-btn">설치</button>
+        <button id="closeBanner" class="close-banner">&times;</button>
+    </div>
+
+    <!-- 오프라인 표시 -->
+    <div id="offlineIndicator" class="offline-indicator">
+        🔌 오프라인 상태입니다. 일부 기능이 제한될 수 있습니다.
+    </div>
+
+    <!-- 업데이트 가능 표시 -->
+    <div id="updateAvailable" class="update-available" onclick="updateApp()">
+        🔄 새 버전이 있습니다. 탭하여 업데이트하세요.
+    </div>
+
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <h1>🎫 쿠폰랩</h1>
+            <p>브랜드 상품을 검색해보세요</p>
+        </header>
+
+        <!-- 검색 바 -->
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="브랜드, 상품을 검색해보세요" id="searchInput">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+
+        <!-- 카테고리 필터 -->
+        <div class="categories">
+            <div class="category-scroll" id="categoryScroll">
+                <button class="category-item active" data-category="all">
+                    <span>🏠</span> 전체
+                </button>
+                <button class="category-item" data-category="fashion">
+                    <span>👕</span> 패션
+                </button>
+                <button class="category-item" data-category="food">
+                    <span>🍔</span> 음식
+                </button>
+                <button class="category-item" data-category="electronics">
+                    <span>📱</span> 전자제품
+                </button>
+                <button class="category-item" data-category="travel">
+                    <span>✈️</span> 여행
+                </button>
+                <button class="category-item" data-category="beauty">
+                    <span>💄</span> 뷰티
+                </button>
+                <button class="category-item" data-category="sports">
+                    <span>⚽</span> 스포츠
+                </button>
+            </div>
+        </div>
+
+        <!-- 필터 태그 -->
+        <div class="filter-tags" id="filterTags">
+            <button class="filter-tag active" data-filter="popular">
+                🔥 인기순
+            </button>
+            <button class="filter-tag" data-filter="latest">
+                🆕 최신순
+            </button>
+            <button class="filter-tag" data-filter="discount">
+                💰 할인율
+            </button>
+        </div>
+
+        <!-- 쿠폰 리스트 -->
+        <div class="coupon-list" id="couponList">
+            <!-- 로딩 상태 -->
+            <div class="loading" id="loadingState">
+                <div class="loading-spinner"></div>
+                <div>쿠폰을 불러오는 중...</div>
+            </div>
+        </div>
+
+        <!-- 하단 네비게이션 -->
+        <nav class="bottom-nav">
+            <a href="/" class="nav-item active">
+                <span>🏠</span>
+                <small>홈</small>
+            </a>
+            <a href="/categories" class="nav-item">
+                <span>🏷️</span>
+                <small>카테고리</small>
+            </a>
+            <a href="/favorites" class="nav-item">
+                <span>❤️</span>
+                <small>즐겨찾기</small>
+            </a>
+            <a href="/mypage" class="nav-item">
+                <span>👤</span>
+                <small>마이페이지</small>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // PWA 관련 변수들
+        let deferredPrompt;
+        let swRegistration;
+
+        // 앱 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            registerServiceWorker();
+            setupInstallPrompt();
+            setupOfflineHandling();
+            setupPushNotifications();
+            loadCoupons();
+        });
+
+        // 앱 초기화
+        function initializeApp() {
+            console.log('🚀 쿠폰랩 PWA 초기화 중...');
+            
+            // 검색 기능 설정
+            setupSearch();
+            
+            // 카테고리 필터 설정
+            setupCategoryFilter();
+            
+            // 필터 태그 설정
+            setupFilterTags();
+            
+            // 하단 네비게이션 설정
+            setupBottomNavigation();
+            
+            // 제스처 지원 설정
+            setupGestures();
+        }
+
+        // Service Worker 등록
+        async function registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                try {
+                    swRegistration = await navigator.serviceWorker.register('/sw.js');
+                    console.log('✅ Service Worker 등록 성공:', swRegistration);
+                    
+                    // 업데이트 확인
+                    swRegistration.addEventListener('updatefound', () => {
+                        const newWorker = swRegistration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                showUpdateAvailable();
+                            }
+                        });
+                    });
+                    
+                } catch (error) {
+                    console.error('❌ Service Worker 등록 실패:', error);
+                }
+            }
+        }
+
+        // PWA 설치 프롬프트 설정
+        function setupInstallPrompt() {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                showInstallBanner();
+            });
+
+            // 설치 버튼 클릭 이벤트
+            document.getElementById('installBtn').addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log('설치 선택:', outcome);
+                    deferredPrompt = null;
+                    hideInstallBanner();
+                }
+            });
+
+            // 배너 닫기 버튼
+            document.getElementById('closeBanner').addEventListener('click', () => {
+                hideInstallBanner();
+                localStorage.setItem('installBannerDismissed', Date.now());
+            });
+
+            // 앱 설치 완료 감지
+            window.addEventListener('appinstalled', () => {
+                console.log('✅ PWA 설치 완료!');
+                hideInstallBanner();
+                showToast('🎉 쿠폰랩이 설치되었습니다!');
+            });
+        }
+
+        // 설치 배너 표시/숨김
+        function showInstallBanner() {
+            const dismissTime = localStorage.getItem('installBannerDismissed');
+            const oneDayAgo = Date.now() - (24 * 60 * 60 * 1000);
+            
+            if (!dismissTime || parseInt(dismissTime) < oneDayAgo) {
+                document.getElementById('installBanner').classList.add('show');
+            }
+        }
+
+        function hideInstallBanner() {
+            document.getElementById('installBanner').classList.remove('show');
+        }
+
+        // 오프라인 처리 설정
+        function setupOfflineHandling() {
+            window.addEventListener('online', () => {
+                hideOfflineIndicator();
+                showToast('🌐 온라인 상태로 복구되었습니다');
+                syncOfflineData();
+            });
+
+            window.addEventListener('offline', () => {
+                showOfflineIndicator();
+                showToast('🔌 오프라인 상태입니다');
+            });
+
+            // 초기 상태 확인
+            if (!navigator.onLine) {
+                showOfflineIndicator();
+            }
+        }
+
+        function showOfflineIndicator() {
+            document.getElementById('offlineIndicator').classList.add('show');
+        }
+
+        function hideOfflineIndicator() {
+            document.getElementById('offlineIndicator').classList.remove('show');
+        }
+
+        // 업데이트 표시/처리
+        function showUpdateAvailable() {
+            document.getElementById('updateAvailable').classList.add('show');
+        }
+
+        function updateApp() {
+            if (swRegistration && swRegistration.waiting) {
+                swRegistration.waiting.postMessage('SKIP_WAITING');
+                window.location.reload();
+            }
+        }
+
+        // 푸시 알림 설정
+        async function setupPushNotifications() {
+            if ('Notification' in window && 'serviceWorker' in navigator) {
+                // 알림 권한 요청
+                const permission = await Notification.requestPermission();
+                
+                if (permission === 'granted' && swRegistration) {
+                    try {
+                        // 푸시 구독 생성
+                        const subscription = await swRegistration.pushManager.subscribe({
+                            userVisibleOnly: true,
+                            applicationServerKey: urlBase64ToUint8Array('YOUR_VAPID_PUBLIC_KEY')
+                        });
+                        
+                        // 서버에 구독 정보 전송
+                        await fetch('/api/push-subscribe', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(subscription)
+                        });
+                        
+                        console.log('✅ 푸시 알림 구독 완료');
+                    } catch (error) {
+                        console.error('❌ 푸시 알림 구독 실패:', error);
+                    }
+                }
+            }
+        }
+
+        // VAPID 키 변환 유틸리티
+        function urlBase64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding)
+                .replace(/-/g, '+')
+                .replace(/_/g, '/');
+
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+
+        // 검색 기능
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    performSearch(e.target.value);
+                }, 300);
+            });
+        }
+
+        function performSearch(query) {
+            if (query.length > 0) {
+                showLoading();
+                // 검색 API 호출 시뮬레이션
+                setTimeout(() => {
+                    loadCoupons(query);
+                }, 500);
+            } else {
+                loadCoupons();
+            }
+        }
+
+        // 카테고리 필터
+        function setupCategoryFilter() {
+            const categories = document.querySelectorAll('.category-item');
+            categories.forEach(category => {
+                category.addEventListener('click', () => {
+                    // 활성 상태 변경
+                    categories.forEach(c => c.classList.remove('active'));
+                    category.classList.add('active');
+                    
+                    // 카테고리 필터링
+                    const categoryType = category.dataset.category;
+                    filterCoupons(categoryType);
+                });
+            });
+        }
+
+        // 필터 태그
+        function setupFilterTags() {
+            const filterTags = document.querySelectorAll('.filter-tag');
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    // 활성 상태 변경
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active');
+                    
+                    // 정렬 적용
+                    const sortType = tag.dataset.filter;
+                    sortCoupons(sortType);
+                });
+            });
+        }
+
+        // 하단 네비게이션
+        function setupBottomNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // 활성 상태 변경
+                    navItems.forEach(n => n.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // 햅틱 피드백
+                    if ('vibrate' in navigator) {
+                        navigator.vibrate(50);
+                    }
+                    
+                    // 페이지 이동 로직
+                    const href = item.getAttribute('href');
+                    navigateToPage(href);
+                });
+            });
+        }
+
+        // 제스처 지원
+        function setupGestures() {
+            let startY = 0;
+            let currentY = 0;
+            let isRefreshing = false;
+
+            const couponList = document.getElementById('couponList');
+            
+            couponList.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+            });
+
+            couponList.addEventListener('touchmove', (e) => {
+                currentY = e.touches[0].clientY;
+                const diff = currentY - startY;
+                
+                // Pull to refresh
+                if (diff > 100 && couponList.scrollTop === 0 && !isRefreshing) {
+                    isRefreshing = true;
+                    refreshCoupons();
+                }
+            });
+        }
+
+        // 쿠폰 데이터 로드
+        async function loadCoupons(searchQuery = '') {
+            showLoading();
+            
+            try {
+                // API 호출 (오프라인 시 캐시에서 로드)
+                const response = await fetch(`/api/coupons?q=${searchQuery}`);
+                const coupons = await response.json();
+                
+                displayCoupons(coupons);
+                
+            } catch (error) {
+                console.error('쿠폰 로드 실패:', error);
+                
+                // 오프라인 상태에서 캐시된 데이터 사용
+                const cachedCoupons = getCachedCoupons();
+                displayCoupons(cachedCoupons);
+                
+                if (!navigator.onLine) {
+                    showToast('🔌 오프라인 상태에서 저장된 데이터를 표시합니다');
+                }
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 쿠폰 표시
+        function displayCoupons(coupons) {
+            const couponList = document.getElementById('couponList');
+            
+            if (!coupons || coupons.length === 0) {
+                couponList.innerHTML = `
+                    <div class="loading">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                        <div>검색 결과가 없습니다.</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            couponList.innerHTML = coupons.map((coupon, index) => `
+                <div class="coupon-card" onclick="openCoupon('${coupon.id}')">
+                    <div class="coupon-header">
+                        <div class="coupon-rank">#${index + 1}</div>
+                        <div class="coupon-title">
+                            <h3>${coupon.title}</h3>
+                        </div>
+                        <div class="coupon-discount">${coupon.discount}</div>
+                    </div>
+                    <div class="coupon-meta">
+                        <div class="coupon-stats">
+                            <span>⭐ ${coupon.rating}</span>
+                            <span>👥 ${coupon.users}</span>
+                            <span>📅 ${coupon.timeLeft}</span>
+                        </div>
+                    </div>
+                    <div class="coupon-brand">${coupon.brand}</div>
+                    <div class="coupon-actions">
+                        <button class="btn btn-primary" onclick="useCoupon('${coupon.id}', event)">
+                            쿠폰 사용
+                        </button>
+                        <button class="btn btn-secondary" onclick="saveCoupon('${coupon.id}', event)">
+                            💾
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 더미 데이터 (오프라인 시 사용)
+        function getCachedCoupons() {
+            return [
+                {
+                    id: '1',
+                    title: '무신사 스토어',
+                    discount: '15% 할인',
+                    rating: '4.8',
+                    users: '12.3k',
+                    timeLeft: '~08:15',
+                    brand: 'MUSINSA15'
+                },
+                {
+                    id: '2',
+                    title: '배달의민족',
+                    discount: '3000원 할인',
+                    rating: '4.6',
+                    users: '11.3k',
+                    timeLeft: '~07:30',
+                    brand: 'BAEMIN3K'
+                },
+                {
+                    id: '3',
+                    title: '쿠팡 로켓배송',
+                    discount: '20% 할인',
+                    rating: '4.9',
+                    users: '10.9k',
+                    timeLeft: '~08:01',
+                    brand: 'ROCKET20'
+                }
+            ];
+        }
+
+        // UI 상태 관리
+        function showLoading() {
+            document.getElementById('loadingState').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingState').style.display = 'none';
+        }
+
+        function showToast(message) {
+            // 간단한 토스트 메시지
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 20px;
+                font-size: 14px;
+                z-index: 10000;
+                animation: slideDown 0.3s ease-out;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // 쿠폰 관련 함수들
+        function openCoupon(couponId) {
+            // 햅틱 피드백
+            if ('vibrate' in navigator) {
+                navigator.vibrate(100);
+            }
+            
+            // 쿠폰 상세 페이지로 이동
+            navigateToPage(`/coupon/${couponId}`);
+        }
+
+        function useCoupon(couponId, event) {
+            event.stopPropagation();
+            
+            // 쿠폰 사용 로직
+            showToast('🎉 쿠폰이 클립보드에 복사되었습니다!');
+            
+            // 쿠폰 코드 복사
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(`COUPON_${couponId}`);
+            }
+        }
+
+        function saveCoupon(couponId, event) {
+            event.stopPropagation();
+            
+            // 쿠폰 저장 로직
+            const savedCoupons = JSON.parse(localStorage.getItem('savedCoupons') || '[]');
+            if (!savedCoupons.includes(couponId)) {
+                savedCoupons.push(couponId);
+                localStorage.setItem('savedCoupons', JSON.stringify(savedCoupons));
+                showToast('💾 쿠폰이 저장되었습니다!');
+            } else {
+                showToast('📋 이미 저장된 쿠폰입니다.');
+            }
+        }
+
+        // 페이지 네비게이션
+        function navigateToPage(path) {
+            // SPA 라우팅 로직 (실제 구현시 라우터 라이브러리 사용)
+            console.log('페이지 이동:', path);
+            
+            // 페이지 전환 애니메이션
+            document.querySelector('.container').style.opacity = '0.7';
+            setTimeout(() => {
+                document.querySelector('.container').style.opacity = '1';
+            }, 200);
+        }
+
+        // 필터링 및 정렬
+        function filterCoupons(category) {
+            showLoading();
+            setTimeout(() => {
+                loadCoupons();
+            }, 300);
+        }
+
+        function sortCoupons(sortType) {
+            showLoading();
+            setTimeout(() => {
+                loadCoupons();
+            }, 300);
+        }
+
+        function refreshCoupons() {
+            showToast('🔄 새로운 쿠폰을 불러오는 중...');
+            loadCoupons();
+        }
+
+        // 오프라인 데이터 동기화
+        async function syncOfflineData() {
+            if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+                try {
+                    const registration = await navigator.serviceWorker.ready;
+                    await registration.sync.register('background-sync');
+                    console.log('📤 백그라운드 동기화 등록');
+                } catch (error) {
+                    console.error('동기화 등록 실패:', error);
+                }
+            }
+        }
+    </script>
+</body>
 </html>
