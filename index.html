@@ -1,86 +1,41 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>쿠폰랩 - 최고의 할인 쿠폰 모음</title>
     
-    <!-- PWA 메타 태그들 -->
-    <meta name="description" content="최신 할인 쿠폰과 프로모션을 한곳에서! 쿠폰랩에서 최대 90% 할인 혜택을 누리세요.">
-    <meta name="theme-color" content="#3b82f6">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="쿠폰랩">
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="최신 할인 쿠폰과 프로모션을 한곳에서! 쿠폰랩에서 최대 90% 할인 혜택을 누리세요." />
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="쿠폰랩" />
     
-    <!-- 매니페스트 링크 -->
-    <link rel="manifest" href="/manifest.json">
+    <!-- Favicon -->
+    <link rel="icon" href="/public/icons/icon-32x32.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/public/icons/icon-180x180.png" />
     
-    <!-- 파비콘 -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
 </head>
 <body>
-    <!-- React 앱이 렌더링될 위치 -->
     <div id="root"></div>
+    <script type="module" src="./src/index.tsx"></script>
     
-    <!-- React 앱 연결 (경로 수정) -->
-    <script type="module" src="/src/index.tsx"></script>
-    
-    <!-- PWA Service Worker 등록 -->
+    <!-- PWA Service Worker -->
     <script>
-        // Service Worker 등록
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
                     .then((registration) => {
                         console.log('✅ SW 등록 성공:', registration.scope);
-                        
-                        // 업데이트 확인
-                        registration.addEventListener('updatefound', () => {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', () => {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    showUpdateAvailable();
-                                }
-                            });
-                        });
                     })
                     .catch((error) => {
                         console.log('❌ SW 등록 실패:', error);
                     });
             });
         }
-
-        // PWA 설치 프롬프트
-        let deferredPrompt;
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            showInstallPrompt();
-        });
-
-        function showInstallPrompt() {
-            console.log('📱 PWA 설치 가능');
-        }
-
-        function showUpdateAvailable() {
-            console.log('🔄 업데이트 가능');
-        }
-
-        // 앱 설치 완료 감지
-        window.addEventListener('appinstalled', () => {
-            console.log('🎉 PWA 설치 완료!');
-        });
-
-        // 온라인/오프라인 상태 감지
-        window.addEventListener('online', () => {
-            console.log('🌐 온라인 상태');
-        });
-
-        window.addEventListener('offline', () => {
-            console.log('🔌 오프라인 상태');
-        });
     </script>
 </body>
 </html>
