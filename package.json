@@ -1,24 +1,76 @@
 {
   "name": "couponlab-webapp",
   "version": "1.0.0",
-  "description": "쿠폰랩 - 할인코드 전문 연구소",
-  "main": "src/index.jsx",
+  "description": "쿠폰랩 - 최고의 할인 쿠폰 모음 PWA",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --host",
+    "serve": "vite preview --port 3000",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "type-check": "tsc --noEmit"
   },
+  "keywords": [
+    "coupon",
+    "discount",
+    "pwa",
+    "shopping",
+    "deals",
+    "savings"
+  ],
+  "author": "mindorysidory",
+  "license": "MIT",
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "lucide-react": "^0.263.1",
-    "@supabase/supabase-js": "^2.38.4"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.0.3",
-    "vite": "^4.4.5",
-    "tailwindcss": "^3.3.0",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24"
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-plugin-pwa": "^0.17.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mindorysidory/couponlab-webapp.git"
+  },
+  "homepage": "https://couponlab-webapp.vercel.app",
+  "bugs": {
+    "url": "https://github.com/mindorysidory/couponlab-webapp/issues"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "pwa": {
+    "name": "쿠폰랩",
+    "short_name": "쿠폰랩",
+    "description": "최고의 할인 쿠폰과 프로모션을 한곳에서!",
+    "theme_color": "#4285f4",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/"
   }
 }

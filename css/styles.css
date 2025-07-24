@@ -1,0 +1,627 @@
+/* 쿠폰랩 PWA 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #141414;
+    min-height: 100vh;
+    color: #ffffff;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #000000;
+    min-height: 100vh;
+    position: relative;
+    box-shadow: 0 0 30px rgba(255,255,255,0.1);
+}
+
+/* PWA 설치 배너 */
+.install-banner {
+    background: linear-gradient(135deg, #e50914, #b20710);
+    color: white;
+    padding: 12px 16px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: slideDown 0.3s ease-out;
+    border-bottom: 1px solid #333;
+}
+
+.install-banner.show {
+    display: flex;
+}
+
+.install-banner-text {
+    flex: 1;
+    font-size: 14px;
+}
+
+.install-banner-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.install-banner-btn:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.close-banner {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+/* 오프라인 표시 */
+.offline-indicator {
+    background: #333333;
+    color: #ff6b6b;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    border-bottom: 1px solid #444;
+}
+
+.offline-indicator.show {
+    display: block;
+}
+
+/* 업데이트 가능 표시 */
+.update-available {
+    background: #e50914;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 998;
+    cursor: pointer;
+    border-bottom: 1px solid #333;
+}
+
+.update-available.show {
+    display: block;
+}
+
+/* 헤더 */
+.header {
+    background: #000000;
+    color: white;
+    padding: 24px 20px 20px;
+    text-align: left;
+    position: relative;
+    border-bottom: 1px solid #333;
+}
+
+.header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    background: #ffffff;
+    transform: rotate(45deg);
+    border-radius: 6px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.logo::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 16px;
+    height: 16px;
+    background: #000000;
+    border-radius: 2px;
+}
+
+.header p {
+    opacity: 0.7;
+    font-size: 14px;
+    margin-left: 44px;
+    font-weight: 400;
+}
+
+/* 검색 바 */
+.search-container {
+    padding: 20px;
+    background: #000000;
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 16px 14px 60px;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    background: #1a1a1a;
+    color: white;
+}
+
+.search-input:focus {
+    border-color: #e50914;
+    background: #222222;
+}
+
+.search-input::placeholder {
+    color: #8c8c8c;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8c8c8c;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 카테고리 필터 */
+.categories {
+    padding: 0 20px 20px;
+    background: #000000;
+}
+
+.category-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 8px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.category-item {
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.category-item.active {
+    background: #e50914;
+    border-color: #e50914;
+    color: white;
+}
+
+.category-item:hover {
+    background: #333333;
+    border-color: #555555;
+}
+
+.category-item.active:hover {
+    background: #e50914;
+    border-color: #e50914;
+}
+
+/* 필터 태그 */
+.filter-tags {
+    padding: 0 20px 20px;
+    background: #000000;
+    border-bottom: 1px solid #333;
+}
+
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin: 4px 8px 4px 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.filter-tag.active {
+    background: #e50914;
+    border-color: #e50914;
+    color: white;
+}
+
+.filter-tag:hover {
+    background: #333333;
+    border-color: #555555;
+}
+
+.filter-tag.active:hover {
+    background: #e50914;
+}
+
+/* 쿠폰 리스트 */
+.coupon-list {
+    padding: 20px;
+    background: #0a0a0a;
+    min-height: 500px;
+    padding-bottom: 100px;
+}
+
+.coupon-card {
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.coupon-card:hover {
+    background: #222222;
+    border-color: #555555;
+    transform: translateY(-2px);
+}
+
+.coupon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.coupon-rank {
+    background: #e50914;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.coupon-title {
+    flex: 1;
+    margin: 0 16px;
+}
+
+.coupon-title h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.coupon-discount {
+    background: linear-gradient(45deg, #e50914, #b20710);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.coupon-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: #8c8c8c;
+    margin-bottom: 12px;
+}
+
+.coupon-stats {
+    display: flex;
+    gap: 16px;
+}
+
+.coupon-brand {
+    background: #333333;
+    color: #ffffff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid #444444;
+}
+
+.coupon-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: #e50914;
+    color: white;
+    flex: 1;
+}
+
+.btn-primary:hover {
+    background: #b20710;
+}
+
+.btn-secondary {
+    background: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-secondary:hover {
+    background: #444444;
+    border-color: #666666;
+}
+
+/* 로딩 상태 */
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: #8c8c8c;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #333333;
+    border-top: 3px solid #e50914;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+/* 하단 네비게이션 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 400px;
+    background: #000000;
+    border-top: 1px solid #333333;
+    display: flex;
+    padding: 12px 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+}
+
+.nav-item {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+    transition: color 0.3s;
+    text-decoration: none;
+    color: #8c8c8c;
+    font-weight: 500;
+}
+
+.nav-item.active {
+    color: #e50914;
+}
+
+.nav-item span {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.nav-item small {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Footer */
+.footer {
+    background: #000000;
+    border-top: 1px solid #333333;
+    padding: 30px 20px 20px;
+    margin-top: 40px;
+}
+
+.footer-content {
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.footer-logo .logo {
+    width: 24px;
+    height: 24px;
+}
+
+.footer-logo h3 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px;
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    color: #8c8c8c;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}
+
+.footer-info {
+    border-top: 1px solid #333333;
+    padding-top: 20px;
+    font-size: 11px;
+    color: #666666;
+    line-height: 1.6;
+}
+
+.footer-info p {
+    margin: 0 0 8px 0;
+}
+
+.footer-info .test-notice {
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border-left: 4px solid #e50914;
+}
+
+.footer-info .test-notice p {
+    margin-bottom: 8px;
+}
+
+.footer-info .test-notice a {
+    color: #e50914;
+    text-decoration: none;
+}
+
+.footer-info .test-notice a:hover {
+    text-decoration: underline;
+}
+
+.footer-info .company-info {
+    margin-bottom: 12px;
+}
+
+/* 애니메이션 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 360px) {
+    .coupon-card {
+        padding: 12px;
+    }
+    
+    .coupon-title h3 {
+        font-size: 14px;
+    }
+    
+    .header h1 {
+        font-size: 24px;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+/* PWA 설치 완료 후 상태 표시줄 여백 */
+@media (display-mode: standalone) {
+    .header {
+        padding-top: env(safe-area-inset-top, 24px);
+    }
+    
+    .bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom, 12px);
+    }
+}
