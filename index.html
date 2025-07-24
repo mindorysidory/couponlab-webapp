@@ -16,15 +16,15 @@
     <link rel="manifest" href="/manifest.json">
     
     <!-- 파비콘 -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/public/icons/icon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/public/icons/icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
 </head>
 <body>
     <!-- React 앱이 렌더링될 위치 -->
     <div id="root"></div>
     
     <!-- React 앱 연결 -->
-    <script type="module" src="/src/index.tsx"></script>
+    <script type="module" src="./src/index.tsx"></script>
     
     <!-- PWA Service Worker 등록 -->
     <script>
@@ -61,12 +61,10 @@
         });
 
         function showInstallPrompt() {
-            // 설치 배너 표시 (React 앱에서 처리)
             console.log('📱 PWA 설치 가능');
         }
 
         function showUpdateAvailable() {
-            // 업데이트 배너 표시 (React 앱에서 처리)
             console.log('🔄 업데이트 가능');
         }
 
