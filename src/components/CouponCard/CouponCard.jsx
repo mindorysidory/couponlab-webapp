@@ -1,14 +1,13 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import useStore from '../../store/useStore.js'  // ← .js 추가
-import { copyToClipboard, showToast, formatNumber, trackEvent, vibrate } from '../../utils/helpers.js'  // ← .js 추가
+import useStore from '../../store/useStore'
+import { copyToClipboard, showToast, formatNumber, trackEvent, vibrate } from '../../utils/helpers'
 import styles from './CouponCard.module.css'
 
 const CouponCard = ({ coupon }) => {
   const { favorites, toggleFavorite } = useStore()
-  const isFavorite = favorites.has(coupon.id)
 
-  const handleCopyCode = async (e) => {
+  const handleCodeClick = async (e) => {
     e.stopPropagation()
     
     const success = await copyToClipboard(coupon.code)
@@ -22,23 +21,6 @@ const CouponCard = ({ coupon }) => {
     } else {
       showToast('❌ 복사에 실패했습니다. 다시 시도해주세요.')
     }
-  }
-
-  const handleFavoriteToggle = (e) => {
-    e.stopPropagation()
-    toggleFavorite(coupon.id)
-    vibrate(50)
-    
-    if (!isFavorite) {
-      showToast('💖 즐겨찾기에 추가되었습니다!')
-    } else {
-      showToast('💔 즐겨찾기에서 제거되었습니다.')
-    }
-    
-    trackEvent('favorite_toggled', { 
-      coupon_id: coupon.id, 
-      action: isFavorite ? 'remove' : 'add' 
-    })
   }
 
   const handleCardClick = () => {
@@ -76,7 +58,7 @@ const CouponCard = ({ coupon }) => {
         </div>
       </div>
 
-      {/* 두 번째 줄: 별점 + 사용자 + 기간 + 할인코드 + 복사 + 좋아요 */}
+      {/* 두 번째 줄: 별점 + 사용자 + 기간 + 할인코드 (클릭 가능) */}
       <div className={styles.secondLine}>
         <div className={styles.stats}>
           <span className={styles.stat}>
@@ -91,19 +73,14 @@ const CouponCard = ({ coupon }) => {
         </div>
 
         <div className={styles.actions}>
-          <code className={styles.code}>{coupon.code}</code>
-          <button 
-            className={`${styles.copyBtn} btn btn-primary`}
-            onClick={handleCopyCode}
+          <code 
+            className={styles.code}
+            onClick={handleCodeClick}
+            style={{ cursor: 'pointer' }}
+            title="클릭하면 복사됩니다"
           >
-            복사
-          </button>
-          <button 
-            className={styles.favoriteBtn}
-            onClick={handleFavoriteToggle}
-          >
-            {isFavorite ? '❤️' : '🤍'}
-          </button>
+            {coupon.code}
+          </code>
         </div>
       </div>
     </motion.div>

@@ -10,20 +10,27 @@ const Footer = () => {
         {/* 로고 섹션 */}
         <div className={styles.logoSection}>
           <svg className={styles.footerLogo} viewBox="0 0 32 32">
-            <defs>
-              <radialGradient id="goldGradientFooter" cx="40%" cy="30%">
-                <stop offset="0%" stopColor="#fff59d"/>
-                <stop offset="100%" stopColor="#ffca28"/>
-              </radialGradient>
-            </defs>
-            <rect width="32" height="32" rx="7" fill="#000000"/>
-            <circle cx="16" cy="16" r="11" 
-                    fill="url(#goldGradientFooter)" 
-                    stroke="#ffb300" 
-                    strokeWidth="0.5"/>
-            <circle cx="14" cy="13" r="2" 
-                    fill="rgba(255,255,255,0.2)"/>
-          </svg>
+  <defs>
+    <radialGradient id="goldGradientFooter" cx="30%" cy="30%">
+      <stop offset="0%" stopColor="#fff59d"/>
+      <stop offset="70%" stopColor="#ffca28"/>
+      <stop offset="100%" stopColor="#ffb300"/>
+    </radialGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="#000000"/>
+  <circle cx="16" cy="16" r="12" 
+          fill="url(#goldGradientFooter)" 
+          stroke="#ffb300" 
+          strokeWidth="0.5"/>
+  <circle cx="16" cy="16" r="8" 
+          fill="none" 
+          stroke="rgba(255,255,255,0.3)" 
+          strokeWidth="0.5"/>
+  <circle cx="16" cy="16" r="2" 
+          fill="rgba(255,255,255,0.4)"/>
+  <circle cx="13" cy="12" r="1.5" 
+          fill="rgba(255,255,255,0.6)"/>
+</svg>
           <h3 className={styles.footerTitle}>쿠폰랩</h3>
         </div>
 
