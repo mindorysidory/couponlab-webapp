@@ -5,8 +5,6 @@ import { copyToClipboard, showToast, formatNumber, trackEvent, vibrate } from '.
 import styles from './CouponCard.module.css'
 
 const CouponCard = ({ coupon }) => {
-  const { favorites, toggleFavorite } = useStore()
-
   const handleCodeClick = async (e) => {
     e.stopPropagation()
     
@@ -81,6 +79,7 @@ const CouponCard = ({ coupon }) => {
           >
             {coupon.code}
           </code>
+          {/* [복사] 버튼과 [하트] 버튼 제거됨 */}
         </div>
       </div>
     </motion.div>
