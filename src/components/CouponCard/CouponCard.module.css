@@ -29,7 +29,16 @@
   align-items: center;
   gap: 0.5rem;
   flex: 1;
-  min-width: 0; /* 텍스트 오버플로우 처리 */
+  min-width: 0;
+}
+
+.brandIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  background: #f5f5f5;
+  border: 1px solid #eee;
 }
 
 .rank {
@@ -117,30 +126,15 @@
   font-size: 11px;
 }
 
-.copyBtn {
-  font-size: 11px;
-  padding: 0.25rem 0.5rem;
-  min-width: 40px;
-}
-
-.favoriteBtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 50%;
-  transition: var(--transition);
-  font-size: 16px;
-}
-
-.favoriteBtn:hover {
-  background: var(--border-color);
-}
-
-/* 반응형 - 각 아이폰 모델별 최적화 */
+/* 반응형 */
 @media (max-width: 375px) {
   .card {
     padding: 0.5rem;
+  }
+  
+  .brandIcon {
+    width: 14px;
+    height: 14px;
   }
   
   .leftSection {
@@ -169,12 +163,6 @@
     font-size: 10px;
     padding: 0.2rem 0.4rem;
   }
-  
-  .copyBtn {
-    font-size: 10px;
-    padding: 0.2rem 0.4rem;
-    min-width: 35px;
-  }
 }
 
 @media (min-width: 431px) {
@@ -188,10 +176,5 @@
   
   .code {
     font-size: 12px;
-  }
-  
-  .copyBtn {
-    font-size: 12px;
-    padding: 0.3rem 0.6rem;
   }
 }

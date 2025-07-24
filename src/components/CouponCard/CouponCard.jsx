@@ -39,10 +39,24 @@ const CouponCard = ({ coupon }) => {
       animate={{ opacity: 1, y: 0 }}
       layout
     >
-      {/* 첫 번째 줄: 랭킹 + 사이트명 + New + 설명 + 할인율 */}
+      {/* 첫 번째 줄: 랭킹 + 브랜드로고 + 사이트명 + New + 설명 + 할인율 */}
       <div className={styles.firstLine}>
         <div className={styles.leftSection}>
           <span className={styles.rank}>#{coupon.rank}</span>
+          
+          {/* 브랜드 파비콘 */}
+          {coupon.brandUrl && (
+            <img 
+              src={`https://www.google.com/s2/favicons?domain=${coupon.brandUrl}&sz=32`}
+              alt={`${coupon.brand} 로고`}
+              className={styles.brandIcon}
+              onError={(e) => {
+                // 파비콘 로드 실패시 폴백
+                e.target.style.display = 'none'
+              }}
+            />
+          )}
+          
           <h3 className={`${styles.title} coupon-title`}>{coupon.title}</h3>
           {coupon.isNew && (
             <span className={styles.newBadge}>NEW</span>
@@ -79,7 +93,6 @@ const CouponCard = ({ coupon }) => {
           >
             {coupon.code}
           </code>
-          {/* [복사] 버튼과 [하트] 버튼 제거됨 */}
         </div>
       </div>
     </motion.div>

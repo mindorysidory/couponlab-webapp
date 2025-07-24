@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './Footer.module.css'
 
-
 const Footer = () => {
   return (
     <footer className={styles.footer}>
@@ -53,9 +52,9 @@ const Footer = () => {
 
         {/* 링크 */}
         <div className={styles.links}>
-  <a href="/terms.html" target="_blank" className={styles.link}>이용약관</a>
-  <a href="mailto:tjsalg1@gmail.com" className={styles.link}>개선 피드백/문의하기</a>
-</div>
+          <a href="/terms.html" target="_blank" className={styles.link}>이용약관</a>
+          <a href="mailto:tjsalg1@gmail.com" className={styles.link}>개선 피드백/문의하기</a>
+        </div>
 
         {/* 저작권 */}
         <div className={styles.copyright}>

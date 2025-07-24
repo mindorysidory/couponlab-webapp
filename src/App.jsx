@@ -10,6 +10,7 @@ import CouponCard from './components/CouponCard/CouponCard'
 import HotLinks from './components/HotLinks/HotLinks'
 import BottomNav from './components/Navigation/BottomNav'
 import Footer from './components/Footer/Footer'
+import InstallButton from './components/InstallButton/InstallButton'
 
 // Styles
 import './styles/globals.css'
@@ -56,28 +57,29 @@ function App() {
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.3 }}
             >
-             {/* 쿠폰 목록 헤더 */}
-<div style={{ 
-  padding: '1rem', 
-  display: 'flex', 
-  justifyContent: 'space-between', 
-  alignItems: 'center' 
-}}>
-  <h2 style={{ 
-    margin: 0, 
-    fontSize: '1.125rem', 
-    fontWeight: '600',
-    color: 'var(--text-primary)'
-  }}>
-    🎫 할인 쿠폰
-  </h2>
-  <span style={{
-    fontSize: '0.75rem',
-    color: 'var(--text-secondary)'
-  }}>
-    💡 코드를 클릭하면 복사!
-  </span>
-</div>
+              {/* 쿠폰 목록 헤더 */}
+              <div style={{ 
+                padding: '1rem', 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center' 
+              }}>
+                <h2 style={{ 
+                  margin: 0, 
+                  fontSize: '1.125rem', 
+                  fontWeight: '600',
+                  color: 'var(--text-primary)'
+                }}>
+                  🎫 할인 쿠폰
+                </h2>
+                <span style={{
+                  fontSize: '0.75rem',
+                  color: 'var(--text-secondary)'
+                }}>
+                  💡 코드를 클릭하면 복사!
+                </span>
+              </div>
+
               {/* 쿠폰 카드 리스트 */}
               <div style={{ padding: '0 1rem' }}>
                 {displayCoupons.length > 0 ? (
@@ -151,6 +153,9 @@ function App() {
         {/* 푸터 */}
         <Footer />
       </main>
+
+      {/* PWA 설치 버튼 */}
+      <InstallButton />
 
       {/* 하단 네비게이션 */}
       <BottomNav />
