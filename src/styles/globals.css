@@ -1,0 +1,220 @@
+:root {
+  --primary-color: #000000;
+  --secondary-color: #ffffff;
+  --accent-color: #16a34a; /* 초록색으로 변경 */
+  --text-primary: #ffffff;
+  --text-secondary: #8c8c8c;
+  --background-dark: #0a0a0a;
+  --background-card: #1a1a1a;
+  --border-color: #333333;
+  --border-hover: #555555;
+  --gradient-discount: linear-gradient(45deg, #16a34a, #22c55e); /* 초록색 그라데이션 */
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3);
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--primary-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* 아이폰별 반응형 */
+/* iPhone SE (375px) */
+@media (max-width: 375px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  .coupon-title {
+    font-size: 14px !important;
+  }
+  
+  .coupon-description {
+    font-size: 11px !important;
+  }
+  
+  .discount-badge {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+  }
+}
+
+/* iPhone 12/13/14 (390px) */
+@media (min-width: 376px) and (max-width: 430px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .coupon-title {
+    font-size: 15px !important;
+  }
+  
+  .coupon-description {
+    font-size: 12px !important;
+  }
+  
+  .discount-badge {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* iPhone 14 Pro Max (430px+) */
+@media (min-width: 431px) {
+  .container {
+    padding: 0 20px;
+  }
+  
+  .coupon-title {
+    font-size: 16px !important;
+  }
+  
+  .coupon-description {
+    font-size: 13px !important;
+  }
+  
+  .discount-badge {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* PWA 설치 후 상태 표시줄 여백 */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* 애니메이션 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 유틸리티 클래스 */
+.container {
+  max-width: 430px;
+  margin: 0 auto;
+  background: var(--primary-color);
+  min-height: 100vh;
+  position: relative;
+}
+
+.animate-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--border-color);
+  border-top: 2px solid var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* 버튼 기본 스타일 */
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+}
+
+.btn-primary {
+  background: var(--gradient-discount);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.btn-secondary {
+  background: var(--background-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--border-color);
+}
+
+/* 토스트 메시지 */
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  z-index: 10000;
+  animation: slideIn 0.3s ease-out;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
