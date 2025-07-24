@@ -1,8 +1,8 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import useStore from '../../store/useStore'
-import { categories } from '../../data/coupons'
-import { hotLinkCategories } from '../../data/hotlinks'
+import useStore from '../../store/useStore.js'  // ← .js 추가
+import { categories } from '../../data/coupons.js'  // ← .js 추가
+import { hotLinkCategories } from '../../data/hotlinks.js'  // ← .js 추가
 import styles from './Navigation.module.css'
 
 const CategoryNav = () => {

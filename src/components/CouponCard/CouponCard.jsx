@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import useStore from '../../store/useStore'
-import { copyToClipboard, showToast, formatNumber, trackEvent, vibrate } from '../../utils/helpers'
+import useStore from '../../store/useStore.js'  // ← .js 추가
+import { copyToClipboard, showToast, formatNumber, trackEvent, vibrate } from '../../utils/helpers.js'  // ← .js 추가
 import styles from './CouponCard.module.css'
 
 const CouponCard = ({ coupon }) => {

@@ -1,8 +1,8 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { hotLinks } from '../../data/hotlinks'
-import { formatNumber, trackEvent, vibrate } from '../../utils/helpers'
-import useStore from '../../store/useStore'
+import { hotLinks } from '../../data/hotlinks.js'  // ← .js 추가
+import { formatNumber, trackEvent, vibrate } from '../../utils/helpers.js'  // ← .js 추가
+import useStore from '../../store/useStore.js'  // ← .js 추가
 import styles from './HotLinks.module.css'
 
 const HotLinks = () => {

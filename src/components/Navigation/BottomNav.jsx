@@ -1,6 +1,6 @@
 import React from 'react'
-import useStore from '../../store/useStore'
-import { trackEvent, vibrate } from '../../utils/helpers'
+import useStore from '../../store/useStore.js'  // ← .js 추가
+import { trackEvent, vibrate } from '../../utils/helpers.js'  // ← .js 추가
 import styles from './Navigation.module.css'
 
 const BottomNav = () => {

@@ -1,15 +1,15 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import useStore from './store/useStore'
-import { coupons } from './data/coupons'
+import { coupons } from './data/coupons.js'  // ← .js 확장자 추가
 
-// Components
-import Header from './components/Header/Header'
-import CategoryNav from './components/Navigation/CategoryNav'
-import CouponCard from './components/CouponCard/CouponCard'
-import HotLinks from './components/HotLinks/HotLinks'
-import BottomNav from './components/Navigation/BottomNav'
-import Footer from './components/Footer/Footer'
+// Components  
+import Header from './components/Header/Header.jsx'  // ← .jsx 확장자 추가
+import CategoryNav from './components/Navigation/CategoryNav.jsx'
+import CouponCard from './components/CouponCard/CouponCard.jsx'
+import HotLinks from './components/HotLinks/HotLinks.jsx'
+import BottomNav from './components/Navigation/BottomNav.jsx'
+import Footer from './components/Footer/Footer.jsx'
 
 // Styles
 import './styles/globals.css'
