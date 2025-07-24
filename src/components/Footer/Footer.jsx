@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Footer.module.css'
 
+
 const Footer = () => {
   return (
     <footer className={styles.footer}>
@@ -52,16 +53,17 @@ const Footer = () => {
 
         {/* 링크 */}
         <div className={styles.links}>
-          <a href="#" className={styles.link}>이용약관</a>
-          <a href="#" className={styles.link}>개인정보처리방침</a>
-          <a href="#" className={styles.link}>문의하기</a>
-          <a href="#" className={styles.link}>공지사항</a>
-        </div>
+  <a href="/terms.html" target="_blank" className={styles.link}>이용약관</a>
+  <a href="mailto:tjsalg1@gmail.com" className={styles.link}>개선 피드백/문의하기</a>
+</div>
 
         {/* 저작권 */}
         <div className={styles.copyright}>
-          <p>© 2024 쿠폰랩. All rights reserved.</p>
-          <p>본 서비스는 정보 제공 목적으로만 사용됩니다.</p>
+          <p>© 2025 쿠폰랩. All rights reserved.</p>
+          <p>
+            본 서비스는 쿠폰 정보 제공과 제휴 마케팅을 통해 운영됩니다. 
+            일부 링크를 통한 구매 시 소정의 수수료를 받을 수 있습니다.
+          </p>
         </div>
       </div>
     </footer>
