@@ -32,3 +32,7 @@
     총 {filteredCoupons.length}개
   </span>
 </div>
+  )
+}
+
+export default App  // ← 이 줄이 있어야 함!
