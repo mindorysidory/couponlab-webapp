@@ -65,12 +65,13 @@ const InstallButton = () => {
         style={{
           position: 'fixed',
           bottom: '6rem', // 하단 네비게이션 위에
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: '0',
+          right: '0',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           zIndex: 1000,
-          maxWidth: '380px',
-          width: 'calc(100% - 2rem)',
-          margin: '0 1rem'
+          padding: '0 1rem'
         }}
       >
         <motion.button
@@ -78,34 +79,36 @@ const InstallButton = () => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           style={{
-            width: '100%',
             background: 'linear-gradient(45deg, #16a34a, #22c55e)',
             color: 'white',
             border: 'none',
-            borderRadius: '12px',
-            padding: '1rem 1.5rem',
+            borderRadius: '10px',
+            padding: '0.75rem 1.25rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0.75rem',
+            gap: '0.5rem',
             fontWeight: '600',
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             cursor: 'pointer',
             boxShadow: '0 4px 12px rgba(22, 163, 74, 0.3)',
             backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.1)'
+            border: '1px solid rgba(255,255,255,0.1)',
+            maxWidth: '280px',
+            width: 'auto',
+            minWidth: '240px'
           }}
         >
-          <span style={{ fontSize: '1.2rem' }}>📱</span>
+          <span style={{ fontSize: '1rem' }}>📱</span>
           <div style={{ textAlign: 'left' }}>
-            <div style={{ fontSize: '0.95rem', fontWeight: '700' }}>
+            <div style={{ fontSize: '0.85rem', fontWeight: '700' }}>
               앱으로 설치하기
             </div>
-            <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>
+            <div style={{ fontSize: '0.7rem', opacity: 0.9 }}>
               {isIOS ? '공유 버튼 → 홈 화면에 추가' : '홈에 설치하고 매일 할인받기'}
             </div>
           </div>
-          <span style={{ fontSize: '1rem', opacity: 0.8 }}>→</span>
+          <span style={{ fontSize: '0.9rem', opacity: 0.8 }}>→</span>
         </motion.button>
         
         {/* 닫기 버튼 */}
@@ -113,15 +116,15 @@ const InstallButton = () => {
           onClick={() => setShowPrompt(false)}
           style={{
             position: 'absolute',
-            top: '-8px',
-            right: '-8px',
-            width: '24px',
-            height: '24px',
+            top: '-6px',
+            right: 'calc(50% - 140px - 12px)', // 버튼 오른쪽 끝에서 약간 바깥쪽
+            width: '20px',
+            height: '20px',
             borderRadius: '50%',
             background: '#000',
             color: '#fff',
             border: '1px solid #333',
-            fontSize: '12px',
+            fontSize: '10px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
